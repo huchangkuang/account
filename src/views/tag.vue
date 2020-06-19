@@ -1,13 +1,13 @@
 <template>
 <Layout>
-    <p>lavel.vue</p>
+    <p>label.vue</p>
 </Layout>
 </template>
 
 <script lang="ts">
 
     export default {
-        name: "label",
+        name: "tag",
     }
 </script>
 

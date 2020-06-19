@@ -8,7 +8,7 @@
             <Icon name="charts_line"/>
             统计
         </router-link>
-        <router-link to="/" class="item" active-class="selected">
+        <router-link to="/money" class="item" active-class="selected">
             <Icon name="add"/>
             记账
         </router-link>
@@ -30,10 +30,12 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "~@/assets/style/helper.scss";
     nav {
         display: flex;
         background: #ffffff;
         padding: 5px 0;
+        box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1);;
         > .item {
             display: flex;
             justify-content: center;
@@ -46,6 +48,9 @@
                 height: 32px;
                 color: inherit;
                 margin: 3px;
+            }
+            &.selected {
+                color: $theme_color;
             }
         }
     }
