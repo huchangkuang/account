@@ -1,13 +1,12 @@
 <template>
-<Layout>
-    <p>lavel.vue</p>
-</Layout>
+    <Layout>
+        <p>bill.vue</p>
+    </Layout>
 </template>
 
 <script lang="ts">
-
     export default {
-        name: "label",
+        name: "Bill"
     }
 </script>
 
