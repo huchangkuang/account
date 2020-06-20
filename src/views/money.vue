@@ -17,7 +17,7 @@
 
 <style lang="scss">
     .layout-content {
-        border: 1px solid blue;
+        /*border: 1px solid blue;*/
     }
 </style>
 <style lang="scss" scoped>
