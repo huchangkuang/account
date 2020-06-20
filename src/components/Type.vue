@@ -1,6 +1,6 @@
 <template>
     <div class="type">
-        <div class="income-expense">支出</div>
+        <div class="income-expense selected">支出</div>
         <div class="income-expense">收入</div>
     </div>
 </template>

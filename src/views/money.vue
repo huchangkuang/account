@@ -17,7 +17,9 @@
 
 <style lang="scss">
     .layout-content {
-        border: 1px solid blue;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
     }
 </style>
 <style lang="scss" scoped>
