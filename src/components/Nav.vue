@@ -2,7 +2,7 @@
     <nav>
         <router-link to="/bill" class="item" active-class="selected">
             <Icon name="bill"/>
-            明细
+            账单
         </router-link>
         <router-link to="/statistic" class="item" active-class="selected">
             <Icon name="charts_line"/>
