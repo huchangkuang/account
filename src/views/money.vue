@@ -9,13 +9,12 @@
 
 <script lang="ts">
     import NumberPad from "@/components/money/numberPad.vue";
-    import Type from "@/components/money/Type.vue";
     import Receipt from "@/components/money/Receipt.vue";
     import Classify from "@/components/money/Classify.vue";
 
     export default {
         name: "monet.vue",
-        components: {Classify, Receipt, Type, NumberPad},
+        components: {Classify, Receipt, NumberPad},
     }
 </script>
 

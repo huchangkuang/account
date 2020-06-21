@@ -4,7 +4,7 @@
              @click="selectType('-')">支出
         </div>
         <div class="income-expense" :class="type === '+' && 'selected'"
-             @click="selectType('+')">收入
+             @click="selectType('+')"  >收入
         </div>
     </div>
 </template>
