@@ -35,10 +35,7 @@
         align-items: center;
         min-height: 94px;
         font-weight: bold;
-        font-size: 18px;
-        .keeping {
 
-        }
         .touch {
             background: white;
             padding: 4px 20px;

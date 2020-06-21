@@ -31,8 +31,6 @@
 <style lang="scss" scoped>
     .top {
         width: 90%;
-        margin-left: auto;
-        margin-right: auto;
         background: rgb(233, 233, 233);
         height: 16px;
         border-radius: 8px;
