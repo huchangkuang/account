@@ -1,6 +1,5 @@
 <template>
     <div class="numberPad">
-        <!--        <div class="output">0</div>-->
         <div class="buttons">
             <button>1</button>
             <button>2</button>
@@ -32,19 +31,11 @@
     @import "~@/assets/style/helper.scss";
 
     .numberPad {
-        .output {
-            font-size: 36px;
-            font-family: Consolas, monospace;
-            text-align: right;
-            padding: 9px;
-            background: white;
-            box-shadow: inset 0 -3px 3px -3px rgba(0, 0, 0, 0.2),
-            inset 0 3px 3px -3px rgba(0, 0, 0, 0.2);
-        }
 
         .buttons {
             display: flex;
             flex-wrap: wrap;
+            box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.25);
 
             button {
                 width: 25%;

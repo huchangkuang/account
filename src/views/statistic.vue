@@ -6,7 +6,7 @@
 
 <script lang="ts">
 
-    import Type from "@/components/Type.vue";
+    import Type from "@/components/money/Type.vue";
     export default {
         name: "statistic",
     }

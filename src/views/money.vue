@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
-    import NumberPad from "@/components/numberPad.vue";
-    import Type from "@/components/Type.vue";
-    import Receipt from "@/components/Receipt.vue";
+    import NumberPad from "@/components/money/numberPad.vue";
+    import Type from "@/components/money/Type.vue";
+    import Receipt from "@/components/money/Receipt.vue";
 
     export default {
         name: "monet.vue",
