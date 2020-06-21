@@ -1,6 +1,7 @@
 <template>
     <Layout class-prefix="layout">
         <Type/>
+        <Receipt/>
         <NumberPad/>
     </Layout>
 </template>
@@ -8,10 +9,11 @@
 <script lang="ts">
     import NumberPad from "@/components/numberPad.vue";
     import Type from "@/components/Type.vue";
+    import Receipt from "@/components/Receipt.vue";
 
     export default {
         name: "monet.vue",
-        components: {Type, NumberPad},
+        components: {Receipt, Type, NumberPad},
     }
 </script>
 
