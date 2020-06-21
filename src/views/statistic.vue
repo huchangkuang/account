@@ -6,6 +6,7 @@
 
 <script lang="ts">
 
+    import Type from "@/components/Type.vue";
     export default {
         name: "statistic",
     }
