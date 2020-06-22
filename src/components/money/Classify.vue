@@ -65,6 +65,10 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                .icon {
+                    width: 24px;
+                    height: 24px;
+                }
             }
         }
     }

@@ -32,31 +32,37 @@
         inputMoney(event: MouseEvent) {
             const number = (event.target as HTMLButtonElement).textContent;
             if (this.value.length >= 8) {
+                if ( parseInt(this.value)>=100000) {
+                    window.alert("你有这么多钱嘛，小老弟");
+                }
                 return;
             }
             if (this.value === "0") {
                 if (number && "0123456789".indexOf(number) >= 0) {
-                    this.$emit("update:number", number);
+                    this.$emit("update:value", number);
+                }
+                if (number === "."){
+                    this.$emit("update:value", this.value + number);
                 }
             } else {
                 if (this.value.indexOf(".") >= 0 && number === ".") {
                     return;
                 } else {
-                    this.$emit("update:number", this.value + number);
+                    this.$emit("update:value", this.value + number);
                 }
             }
         }
 
         remove() {
             if (this.value.length === 1) {
-                this.$emit("update:number",  "0");
+                this.$emit("update:value", "0");
             } else {
-                this.$emit("update:number", this.value.slice(0, -1));
+                this.$emit("update:value", this.value.slice(0, -1));
             }
         }
 
         clear() {
-            this.$emit("update:number", "0");
+            this.$emit("update:value", "0");
         }
 
         ok() {

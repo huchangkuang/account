@@ -3,7 +3,7 @@
         <Type/>
         <Classify class="tag"/>
         <Receipt class="receipt" :output="output"/>
-        <NumberPad :value="output" @update:number="output = $event"/>
+        <NumberPad :value.sync="output" />
     </Layout>
 </template>
 
