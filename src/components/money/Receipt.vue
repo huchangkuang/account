@@ -1,9 +1,9 @@
 <template>
-    <div class="top">
+    <div class="top" >
         <div class="paper">
             <div class="amount">
                 <div class="text">金额：</div>
-                <div class="output">￥0</div>
+                <div class="output" @update:number="yyy">{{output}}</div>
             </div>
             <div class="time">日期：
                 <div class="time-content"></div>
@@ -20,11 +20,14 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component,Prop} from "vue-property-decorator";
 
     @Component
     export default class Receipt extends Vue {
-
+        @Prop(String) output!: string;
+        yyy(zz: string){
+            console.log(zz)
+        }
     }
 </script>
 

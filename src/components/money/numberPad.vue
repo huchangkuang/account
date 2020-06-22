@@ -1,30 +1,68 @@
 <template>
     <div class="numberPad">
         <div class="buttons">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>删除</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>清空</button>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
+            <button @click="inputMoney">1</button>
+            <button @click="inputMoney">2</button>
+            <button @click="inputMoney">3</button>
+            <button @click="remove">删除</button>
+            <button @click="inputMoney">4</button>
+            <button @click="inputMoney">5</button>
+            <button @click="inputMoney">6</button>
+            <button @click="clear">清空</button>
+            <button @click="inputMoney">7</button>
+            <button @click="inputMoney">8</button>
+            <button @click="inputMoney">9</button>
             <button>备注</button>
-            <button>.</button>
-            <button>0</button>
+            <button @click="inputMoney">.</button>
+            <button @click="inputMoney">0</button>
             <button>今天</button>
-            <button class="ok">确认</button>
+            <button @click="ok" class="ok">确认</button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: "numberPad"
-    };
+    import Vue from "vue";
+    import {Component, Prop} from "vue-property-decorator";
+
+    @Component
+    export default class NumberPad extends Vue {
+        @Prop(String) value!: string;
+
+        inputMoney(event: MouseEvent) {
+            const number = (event.target as HTMLButtonElement).textContent;
+            if (this.value.length >= 8) {
+                return;
+            }
+            if (this.value === "0") {
+                if (number && "0123456789".indexOf(number) >= 0) {
+                    this.$emit("update:number", number);
+                }
+            } else {
+                if (this.value.indexOf(".") >= 0 && number === ".") {
+                    return;
+                } else {
+                    this.$emit("update:number", this.value + number);
+                }
+            }
+        }
+
+        remove() {
+            if (this.value.length === 1) {
+                this.$emit("update:number",  "0");
+            } else {
+                this.$emit("update:number", this.value.slice(0, -1));
+            }
+        }
+
+        clear() {
+            this.$emit("update:number", "0");
+        }
+
+        ok() {
+            window.alert("记下一笔");
+        }
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +77,7 @@
 
             button {
                 width: 25%;
-                height: 64px;
+                height: 48px;
                 background: transparent;
                 border: none;
             }

@@ -49,17 +49,21 @@
 
 <style lang="scss" scoped>
     .container {
+        width: 90%;
         ul {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
             li {
                 width: 25%;
-                height: 64px;
+                height: 48px;
                 text-align: center;
                 display: flex;
                 flex-direction: column;
+                justify-content: center;
                 align-items: center;
             }
         }

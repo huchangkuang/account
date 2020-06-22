@@ -38,7 +38,7 @@
 <style lang="scss" scoped>
     @import "~@/assets/style/helper.scss";
     .container {
-        font-weight: bold;
+        /*font-weight: bold;*/
         background: white;
         min-height: 160px;
         width: 88%;
@@ -54,6 +54,8 @@
                 border: none;
                 border-radius: 4px;
                 padding:2px 4px;
+                font-weight: bold;
+                box-shadow: 0 1px 1px rgba(0,0,0,0.1);
             }
             .text {
                 margin-left: 10px;
