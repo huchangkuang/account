@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
-import tag from "@/views/tag.vue";
 import Money from "@/views/money.vue"
 import Statistic from "@/views/statistic.vue"
 import NotFound from "@/views/notFound.vue"
 import Target from "@/views/target.vue";
 import Bill from "@/views/bill.vue";
+import tag from "@/views/tag.vue";
 
 Vue.use(VueRouter)
 

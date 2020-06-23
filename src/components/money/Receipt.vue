@@ -1,9 +1,10 @@
 <template>
-    <div class="top" >
+    <div class="container">
+        <div class="top-bar"></div>
         <div class="paper">
             <div class="amount">
                 <div class="text">金额：</div>
-                <div class="output" @update:number="yyy">{{output}}</div>
+                <div class="output">{{output}}</div>
             </div>
             <div class="time">日期：
                 <div class="time-content"></div>
@@ -20,35 +21,36 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component,Prop} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
 
     @Component
     export default class Receipt extends Vue {
         @Prop(String) output!: string;
-        yyy(zz: string){
-            console.log(zz)
-        }
+
     }
 </script>
 
 <style lang="scss" scoped>
-    .top {
+    .container {
         width: 90%;
-        background: rgb(233, 233, 233);
-        height: 16px;
-        border-radius: 8px;
         position: relative;
 
-        &::before {
-            content: "";
-            /*border: 1px solid red;*/
-            width: 98%;
-            height: 6px;
-            background: rgb(218, 218, 218);
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%, 7px);
-            border-radius: 3px;
+        .top-bar {
+            background: rgb(233, 233, 233);
+            height: 16px;
+            border-radius: 8px;
+
+            &::before {
+                content: "";
+                /*border: 1px solid red;*/
+                width: 98%;
+                height: 6px;
+                background: rgb(218, 218, 218);
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, 7px);
+                border-radius: 3px;
+            }
         }
 
         .paper {
@@ -87,5 +89,6 @@
                 padding: 2px 10px;
             }
         }
+
     }
 </style>

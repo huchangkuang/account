@@ -31,6 +31,7 @@
         background: $theme_color;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
         padding: 12px 0;
+        width: 100%;
 
         .income-expense {
             border: 1px solid $height_light;

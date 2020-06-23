@@ -3,7 +3,7 @@
         <Type/>
         <Classify class="tag"/>
         <Receipt class="receipt" :output="output"/>
-        <NumberPad :value.sync="output" />
+        <NumberPad class="number-pad" :value.sync="output" />
     </Layout>
 </template>
 
@@ -24,15 +24,15 @@
     .layout-content {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         flex-direction: column;
     }
 </style>
 <style lang="scss" scoped>
     .receipt {
-        margin-left: auto;
-        margin-right: auto;
+        margin-top: -150px;
     }
     .tag {
-        margin: -100px auto;
+        margin-top: -100px;
     }
 </style>

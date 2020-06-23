@@ -75,6 +75,7 @@
     @import "~@/assets/style/helper.scss";
 
     .numberPad {
+        width: 100%;
 
         .buttons {
             display: flex;
