@@ -29,10 +29,5 @@
     }
 </style>
 <style lang="scss" scoped>
-    .receipt {
-        margin-top: -150px;
-    }
-    .tag {
-        margin-top: -100px;
-    }
+
 </style>

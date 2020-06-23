@@ -1,6 +1,8 @@
 <template>
     <div class="container">
-        <div class="top-bar"></div>
+        <div class="top-bar">
+            <div class="top-in"></div>
+        </div>
         <div class="paper">
             <div class="amount">
                 <div class="text">金额：</div>
@@ -33,22 +35,22 @@
 <style lang="scss" scoped>
     .container {
         width: 90%;
-        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
 
         .top-bar {
             background: rgb(233, 233, 233);
             height: 16px;
             border-radius: 8px;
-
-            &::before {
-                content: "";
-                /*border: 1px solid red;*/
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            .top-in {
                 width: 98%;
                 height: 6px;
                 background: rgb(218, 218, 218);
-                position: absolute;
-                left: 50%;
-                transform: translate(-50%, 7px);
+                margin-top: 7px;
                 border-radius: 3px;
             }
         }
@@ -57,10 +59,7 @@
             border-top: 4px solid rgb(233, 233, 233);
             background: white;
             width: 95%;
-            position: absolute;
-            top: 11px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin-top: -5px;
             min-height: 100px;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
