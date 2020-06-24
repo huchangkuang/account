@@ -12,10 +12,12 @@
                 <div>日期：</div>
                 <div class="time-content">{{receiptData.time}}</div>
             </div>
-            <div class="bar kind"><div>分类：</div>
+            <div class="bar kind">
+                <div>分类：</div>
                 <div class="kind-content">{{receiptData.selectedIcon}}</div>
             </div>
-            <div class="bar notes"><div>备注：</div>
+            <div class="bar notes">
+                <div>备注：</div>
                 <div class="note-content">{{receiptData.notes}}</div>
             </div>
         </div>
@@ -80,7 +82,10 @@
             }
 
             .notes {
-                padding: 2px 10px;
+                .note-content {
+                    max-width: 80%;
+                    overflow-wrap: break-word;
+                }
             }
 
             .time {

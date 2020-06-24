@@ -13,14 +13,7 @@
     import Receipt from "@/components/money/Receipt.vue";
     import Classify from "@/components/money/Classify.vue";
     import {Component} from "vue-property-decorator";
-    const now = new Date()
-    console.log(now)
-    // type ReceiptData = {
-    //     selectedIcon:string,
-    //     output : string,
-    //     notes:string,
-    //     time:string
-    // };
+
     @Component({components: {Classify, Receipt, NumberPad}})
     export default class Money extends Vue {
         receiptData = {

@@ -2,23 +2,26 @@
     <div class="container">
         <div class="budget-header">
             <div class="text">06月总预算</div>
-            <button class="setBudget">+设置预算</button>
+            <button class="setBudget" @click="setBudget">+设置预算</button>
         </div>
         <div class="budget-main">
-            <div class="pie"></div>
+            <div class="pie"
+                 :style="{background: `conic-gradient(#f3c623 ${deg}deg,#eaeaea ${deg}deg 360deg)`}">
+                <div class="remain">剩余{{ budget !== 0 ? Math.round(percent*100) : 0}}%</div>
+            </div>
             <ul class="description">
                 <li>
                     <span class="budget-description">剩余预算</span>
-                    <span class="number">0.00</span>
+                    <span class="number">{{budget-expense}}</span>
                 </li>
                 <li class="line"></li>
                 <li>
                     <span class="budget-description">本月预算</span>
-                    <span class="number">0.00</span>
+                    <span class="number">{{budget}}</span>
                 </li>
                 <li>
                     <span class="budget-description">本月支出</span>
-                    <span class="number">0.00</span>
+                    <span class="number">{{expense}}</span>
                 </li>
             </ul>
         </div>
@@ -31,7 +34,16 @@
 
     @Component
     export default class Budget extends Vue {
-
+        deg= 0
+        percent = 0
+        expense = 0
+        budget = 0
+        setBudget(){
+            // this.budget = parseFloat(window.prompt("每月总预算")||"0")
+            this.percent = (this.budget-this.expense)/this.budget
+            this.deg = this.percent*360
+            this.$emit("update:appear","block")
+        }
     }
 </script>
 
@@ -69,8 +81,14 @@
                 width: 100px;
                 height: 100px;
                 border-radius: 50%;
-                background: #eaeaea;
                 position: relative;
+                .remain {
+                    text-align: center;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                }
                 &::before {
                     content: "";
                     width: 64px;
@@ -83,7 +101,7 @@
                     border-radius: 50%;
                 }
                 &::after {
-                    content: "剩余0%";
+                    content: "";
                     position: absolute;
                     top: 50%;
                     left: 50%;
