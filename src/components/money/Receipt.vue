@@ -6,16 +6,17 @@
         <div class="paper">
             <div class="amount">
                 <div class="text">金额：</div>
-                <div class="output">{{output}}</div>
+                <div class="output">{{receiptData.output}}</div>
             </div>
-            <div class="time">日期：
-                <div class="time-content"></div>
+            <div class="bar time">
+                <div>日期：</div>
+                <div class="time-content">{{receiptData.time}}</div>
             </div>
-            <div class="kind">分类：
-                <div class="kind-content"></div>
+            <div class="bar kind"><div>分类：</div>
+                <div class="kind-content">{{receiptData.selectedIcon}}</div>
             </div>
-            <div class="notes">备注：
-                <div class="note-content"></div>
+            <div class="bar notes"><div>备注：</div>
+                <div class="note-content">{{receiptData.notes}}</div>
             </div>
         </div>
     </div>
@@ -27,7 +28,7 @@
 
     @Component
     export default class Receipt extends Vue {
-        @Prop(String) output!: string;
+        @Prop(Object) receiptData!: object;
 
     }
 </script>
@@ -71,13 +72,15 @@
                 font-family: Consolas, monospace;
                 border-bottom: 1px solid #e9e9e9;
             }
+            .bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 2px 10px;
+            }
 
             .notes {
                 padding: 2px 10px;
-
-                input {
-                    border: none;
-                }
             }
 
             .time {

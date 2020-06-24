@@ -1,9 +1,9 @@
 <template>
     <Layout class-prefix="layout">
         <Type/>
-        <Classify class="tag"/>
-        <Receipt class="receipt" :output="output"/>
-        <NumberPad class="number-pad" :value.sync="output" />
+        <Classify :icon-map="iconMap" @update:classify="receiptData.selectedIcon = $event"/>
+        <Receipt :receipt-data="receiptData"/>
+        <NumberPad :value.sync="receiptData.output"/>
     </Layout>
 </template>
 
@@ -13,10 +13,32 @@
     import Receipt from "@/components/money/Receipt.vue";
     import Classify from "@/components/money/Classify.vue";
     import {Component} from "vue-property-decorator";
-
-    @Component({components:{Classify, Receipt, NumberPad}})
-    export default class Money extends Vue{
-        output = "0"
+    const now = new Date()
+    console.log(now)
+    // type ReceiptData = {
+    //     selectedIcon:string,
+    //     output : string,
+    //     notes:string,
+    //     time:string
+    // };
+    @Component({components: {Classify, Receipt, NumberPad}})
+    export default class Money extends Vue {
+        receiptData = {
+            selectedIcon:"餐饮",
+            output : "0",
+            notes:"",
+            time:"2020-6-24"
+        };
+        iconMap = {
+            food: "餐饮",
+            shop: "购物",
+            clothes: "服饰",
+            bus: "交通",
+            entertainment: "娱乐",
+            handshake: "社交",
+            chat: "通讯",
+            medical: "医疗"
+        };
     }
 </script>
 

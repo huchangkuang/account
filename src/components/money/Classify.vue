@@ -1,37 +1,9 @@
 <template>
     <div class="container">
         <ul>
-            <li>
-                <Icon name="food"/>
-                餐饮
-            </li>
-            <li>
-                <Icon name="shop"/>
-                购物
-            </li>
-            <li>
-                <Icon name="clothes"/>
-                服饰
-            </li>
-            <li>
-                <Icon name="bus"/>
-                交通
-            </li>
-            <li>
-                <Icon name="entertainment"/>
-                娱乐
-            </li>
-            <li>
-                <Icon name="handshake"/>
-                社交
-            </li>
-            <li>
-                <Icon name="chat"/>
-                通讯
-            </li>
-            <li>
-                <Icon name="medical"/>
-                医疗
+            <li v-for="(key,index) in iconMap" :key="index" @click="getIndex(index,key)">
+                <Icon :name="index" :class="index === itemName && 'selected'"/>
+                <span>{{key}}</span>
             </li>
         </ul>
     </div>
@@ -39,15 +11,23 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
-
+    import {Component, Prop} from "vue-property-decorator";
+0
     @Component
     export default class Classify extends Vue {
+        @Prop(Object) iconMap!: object
+        itemName = "food"
+        getIndex(index: string,key: string){
+            this.itemName = index
+            this.$emit("update:classify",key)
+
+        }
 
     }
 </script>
 
 <style lang="scss" scoped>
+    @import "~@/assets/style/helper.scss";
     .container {
         width: 90%;
         ul {
@@ -59,7 +39,7 @@
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
             li {
                 width: 25%;
-                height: 48px;
+                height: 64px;
                 text-align: center;
                 display: flex;
                 flex-direction: column;
@@ -68,6 +48,10 @@
                 .icon {
                     width: 24px;
                     height: 24px;
+                    border-radius: 4px;
+                    &.selected {
+                        background: $theme_color;
+                    }
                 }
             }
         }
