@@ -30,7 +30,7 @@
 
     @Component
     export default class Receipt extends Vue {
-        @Prop(Object) receiptData!: object;
+        @Prop(Object) readonly receiptData!: object;
 
     }
 </script>
