@@ -6,8 +6,9 @@
                 <input type="text" placeholder="请输入预算金额" v-model="value" @input="onInput">
             </label>
             <div class="buttons">
-                <button @click="removeShow">取消</button>
-                <button :class="confirm==='blue' && 'change'">确认</button>
+                <button @click="cancel">取消</button>
+                <button :class="confirmColor==='blue' && 'change'"
+                        @click="confirm">确认</button>
             </div>
         </div>
     </div>
@@ -15,24 +16,29 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
 
     @Component
     export default class PopSetBudget extends Vue {
-        // @Prop(String)appear!: string
+        @Prop(String)appear!: string
         value = ""
-        appear = "none"
-        confirm = "grey"
-        removeShow(){
-            this.appear = "none"
+        confirmColor = "grey"
+        cancel(){
+            this.$emit("update:appear","none")
+            this.value = ""
+            this.onInput()
         }
         onInput(){
             if (this.value){
-                this.confirm = "blue"
+                this.confirmColor = "blue"
             }else {
-                this.confirm = "grey"
+                this.confirmColor = "grey"
             }
 
+        }
+        confirm(){
+            this.$emit('update:budget',parseFloat(this.value))
+            this.cancel()
         }
     }
 </script>

@@ -7,12 +7,12 @@
         <div class="budget-main">
             <div class="pie"
                  :style="{background: `conic-gradient(#f3c623 ${deg}deg,#eaeaea ${deg}deg 360deg)`}">
-                <div class="remain">剩余{{ budget !== 0 ? Math.round(percent*100) : 0}}%</div>
+                <div class="remain">剩余{{ budget !== 0 ? Math.round((percent)*100) : 0}}%</div>
             </div>
             <ul class="description">
                 <li>
                     <span class="budget-description">剩余预算</span>
-                    <span class="number">{{budget-expense}}</span>
+                    <span class="number">{{remain}}</span>
                 </li>
                 <li class="line"></li>
                 <li>
@@ -25,24 +25,33 @@
                 </li>
             </ul>
         </div>
+        <PopSetBudget :appear.sync="appear" @update:budget="updateBudget"/>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
+    import PopSetBudget from "@/components/target/PopSetBudget.vue";
 
-    @Component
+
+
+    @Component({components: {PopSetBudget}})
     export default class Budget extends Vue {
+        appear = "none"
         deg= 0
         percent = 0
         expense = 0
         budget = 0
+        remain = 0
         setBudget(){
-            // this.budget = parseFloat(window.prompt("每月总预算")||"0")
-            this.percent = (this.budget-this.expense)/this.budget
+            this.appear = "block"
+        }
+        updateBudget(event: number){
+            this.budget = event
+            this.remain = this.budget-this.expense < 0 ? 0 : this.budget-this.expense
+            this.percent = this.remain/this.budget
             this.deg = this.percent*360
-            this.$emit("update:appear","block")
         }
     }
 </script>
