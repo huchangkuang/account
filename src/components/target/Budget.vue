@@ -48,10 +48,17 @@
             this.appear = "block"
         }
         updateBudget(event: number){
-            this.budget = event
-            this.remain = this.budget-this.expense < 0 ? 0 : this.budget-this.expense
-            this.percent = this.remain/this.budget
-            this.deg = this.percent*360
+            if (event>0){
+                this.budget = event
+                this.remain = this.budget-this.expense < 0 ? 0 : this.budget-this.expense
+                this.percent = this.remain/this.budget
+                this.deg = this.percent*360
+            }else if (event === 0){
+                window.alert("0预算，你要修仙？")
+            }else{
+                window.alert("你丫预算还能是负的？")
+            }
+
         }
     }
 </script>
