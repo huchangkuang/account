@@ -16,7 +16,7 @@
 
     @Component({components: {Classify, Receipt, NumberPad}})
     export default class Money extends Vue {
-        receiptData = {
+        receiptData: ReceiptData = {
             selectedIcon:"餐饮",
             output : "0",
             notes:"",
