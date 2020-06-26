@@ -2,8 +2,8 @@
     <div class="pop" :class="appear==='block' && 'show'">
         <div class="board">
             <label>
-                <span>每月总预算</span>
-                <input type="text" placeholder="请输入预算金额" v-model="value" @input="onInput">
+                <span>{{span}}</span>
+                <input type="text" :placeholder="placeholder" v-model="value" @input="onInput">
             </label>
             <div class="buttons">
                 <button @click="cancel">取消</button>
@@ -20,7 +20,9 @@
 
     @Component
     export default class PopSetBudget extends Vue {
-        @Prop(String)appear!: string
+        @Prop(String) readonly appear!: string
+        @Prop(String) readonly span!: string
+        @Prop(String) readonly placeholder!: string
         value = ""
         confirmColor = "grey"
         cancel(){
@@ -37,7 +39,7 @@
 
         }
         confirm(){
-            this.$emit('update:budget',parseFloat(this.value))
+            this.$emit('update:value',this.value)
             this.cancel()
         }
     }

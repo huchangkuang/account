@@ -25,39 +25,45 @@
                 </li>
             </ul>
         </div>
-        <PopSetBudget :appear.sync="appear" @update:budget="updateBudget"/>
+        <PopWindow :appear.sync="appear" @update:value="updateBudget" :span="'每月总预算'" :placeholder="'请输入预算金额'"/>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
-    import PopSetBudget from "@/components/target/PopSetBudget.vue";
 
 
-
-    @Component({components: {PopSetBudget}})
+    @Component
     export default class Budget extends Vue {
-        appear = "none"
-        deg= 0
-        percent = 0
-        expense = 0
-        budget = 0
-        remain = 0
-        setBudget(){
-            this.appear = "block"
+        appear = "none";
+        deg = 0;
+        percent = 0;
+        expense = 0;
+        budget = 0;
+        remain = 0;
+
+        setBudget() {
+            this.appear = "block";
         }
-        updateBudget(event: number){
-            if (event>0){
-                this.budget = event
-                this.remain = this.budget-this.expense < 0 ? 0 : this.budget-this.expense
-                this.percent = this.remain/this.budget
-                this.deg = this.percent*360
-            }else if (event === 0){
-                window.alert("0预算，你要修仙？")
-            }else{
-                window.alert("你丫预算还能是负的？")
+
+        updateBudget(event: string) {
+            const number = parseFloat(event);
+            if (number) {
+                if (number > 0) {
+                    this.budget = number;
+                    this.remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense;
+                    this.percent = this.remain / this.budget;
+                    this.deg = this.percent * 360;
+                } else if (number === 0) {
+                    window.alert("0预算，你要修仙？");
+                } else {
+                    window.alert("你丫预算还能是负的？");
+                }
+            }else {
+                window.alert("输入数字呀！")
             }
+
 
         }
     }
@@ -65,6 +71,7 @@
 
 <style lang="scss" scoped>
     @import "~@/assets/style/helper.scss";
+
     .container {
         /*font-weight: bold;*/
         background: white;
@@ -72,39 +79,46 @@
         width: 88%;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
+
         .budget-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 10px 25px;
+
             .setBudget {
                 background: $theme_color;
                 border: none;
                 border-radius: 4px;
-                padding:2px 4px;
+                padding: 2px 4px;
                 font-weight: bold;
-                box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             }
+
             .text {
                 margin-left: 10px;
             }
         }
+
         .budget-main {
             display: flex;
             justify-content: space-between;
             padding: 5px 25px;
+
             .pie {
                 width: 100px;
                 height: 100px;
                 border-radius: 50%;
                 position: relative;
+
                 .remain {
                     text-align: center;
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%,-50%);
+                    transform: translate(-50%, -50%);
                 }
+
                 &::before {
                     content: "";
                     width: 64px;
@@ -113,28 +127,32 @@
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%,-50%);
+                    transform: translate(-50%, -50%);
                     border-radius: 50%;
                 }
+
                 &::after {
                     content: "";
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%,-50%);
+                    transform: translate(-50%, -50%);
                     text-align: center;
                 }
             }
+
             .description {
                 display: flex;
                 justify-content: space-between;
                 flex-direction: column;
+
                 .line {
                     width: 160px;
                     height: 1px;
                     background: #e3e3e3;
                     right: 0;
                 }
+
                 li {
                     display: flex;
                     justify-content: space-between;

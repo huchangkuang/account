@@ -12,12 +12,13 @@
             <button @click="inputMoney">7</button>
             <button @click="inputMoney">8</button>
             <button @click="inputMoney">9</button>
-            <button>备注</button>
+            <button @click="inputNotes">备注</button>
             <button @click="inputMoney">.</button>
             <button @click="inputMoney">0</button>
             <button>今天</button>
             <button @click="ok" class="ok">确认</button>
         </div>
+        <PopWindow :appear.sync="appear" @update:value="updateNotes" :span="'备注'" :placeholder="'在此输入备注'"/>
     </div>
 </template>
 
@@ -27,8 +28,15 @@
 
     @Component
     export default class NumberPad extends Vue {
-        @Prop(String) value!: string;
+        @Prop(String) readonly value!: string;
 
+        appear = "none"
+        inputNotes(){
+            this.appear = "block"
+        }
+        updateNotes(event: string){
+            this.$emit("update:notes",event)
+        }
         inputMoney(event: MouseEvent) {
             const number = (event.target as HTMLButtonElement).textContent;
             if (this.value.length >= 8) {

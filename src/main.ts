@@ -7,12 +7,14 @@ import Nav from "@/components/Nav.vue";
 import Layout from "@/components/Layout.vue";
 import Icon from "@/components/Icon.vue";
 import Type from "@/components/money/Type.vue";
+import PopWindow from "@/components/PopWindow.vue";
 
 Vue.config.productionTip = false
 Vue.component("Nav",Nav)
 Vue.component("Layout",Layout)
 Vue.component("Icon",Icon)
 Vue.component("Type",Type)
+Vue.component("PopWindow",PopWindow)
 
 new Vue({
   router,

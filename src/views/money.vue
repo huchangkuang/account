@@ -3,7 +3,7 @@
         <Type/>
         <Classify :icon-map="iconMap" @update:classify="receiptData.selectedIcon = $event"/>
         <Receipt :receipt-data="receiptData"/>
-        <NumberPad :value.sync="receiptData.output"/>
+        <NumberPad :value.sync="receiptData.output" @update:notes="receiptData.notes=$event"/>
     </Layout>
 </template>
 
