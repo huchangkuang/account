@@ -19,6 +19,7 @@
             <button @click="ok" class="ok">确认</button>
         </div>
         <PopWindow :appear.sync="appear" @update:value="updateNotes" :span="'备注'" :placeholder="'在此输入备注'"/>
+        <WarnWindow :show.sync="show" :span="'你有那么多钱嘛，小老弟'"/>
     </div>
 </template>
 
@@ -31,6 +32,7 @@
         @Prop(String) readonly value!: string;
 
         appear = "none"
+        show = "none"
         inputNotes(){
             this.appear = "block"
         }
@@ -41,7 +43,8 @@
             const number = (event.target as HTMLButtonElement).textContent;
             if (this.value.length >= 8) {
                 if ( parseInt(this.value)>=100000) {
-                    window.alert("你有这么多钱嘛，小老弟");
+                    // window.alert("你有这么多钱嘛，小老弟");
+                    this.show = "block"
                 }
                 return;
             }
@@ -74,7 +77,11 @@
         }
 
         ok() {
-            window.alert("记下一笔");
+            if (this.value === "0"){
+                window.alert("你刚刚记了一笔0元的帐，今天白嫖了吗？")
+            }else{
+                window.alert("记下一笔");
+            }
         }
     }
 </script>

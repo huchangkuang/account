@@ -26,6 +26,7 @@
             </ul>
         </div>
         <PopWindow :appear.sync="appear" @update:value="updateBudget" :span="'每月总预算'" :placeholder="'请输入预算金额'"/>
+        <WarnWindow :show.sync="show" :span="span"/>
     </div>
 </template>
 
@@ -42,6 +43,9 @@
         expense = 0;
         budget = 0;
         remain = 0;
+        show = "none"
+        span = ""
+        spanNotes = ["0预算，你要修仙？", "负预算是闹哪样？", "输入数字呀！"]
 
         setBudget() {
             this.appear = "block";
@@ -49,19 +53,20 @@
 
         updateBudget(event: string) {
             const number = parseFloat(event);
-            if (number) {
-                if (number > 0) {
-                    this.budget = number;
-                    this.remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense;
-                    this.percent = this.remain / this.budget;
-                    this.deg = this.percent * 360;
-                } else if (number === 0) {
-                    window.alert("0预算，你要修仙？");
-                } else {
-                    window.alert("你丫预算还能是负的？");
-                }
-            }else {
-                window.alert("输入数字呀！")
+            if (number > 0) {
+                this.budget = number;
+                this.remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense;
+                this.percent = this.remain / this.budget;
+                this.deg = this.percent * 360;
+            } else if (number === 0) {
+                this.span = this.spanNotes[0]
+                this.show = "block"
+            } else if (number < 0) {
+                this.span = this.spanNotes[1]
+                this.show = "block"
+            } else {
+                this.span = this.spanNotes[2]
+                this.show = "block"
             }
 
 
