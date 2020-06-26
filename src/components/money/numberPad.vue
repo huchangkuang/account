@@ -43,7 +43,6 @@
             const number = (event.target as HTMLButtonElement).textContent;
             if (this.value.length >= 8) {
                 if ( parseInt(this.value)>=100000) {
-                    // window.alert("你有这么多钱嘛，小老弟");
                     this.show = "block"
                 }
                 return;
