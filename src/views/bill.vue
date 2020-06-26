@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <p>bill.vue</p>
+        <StatisticType/>
     </Layout>
 </template>
 
