@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <router-link to="/edit" class="container">
         +添加类别
-    </div>
+    </router-link>
 </template>
 
 <script lang="ts">

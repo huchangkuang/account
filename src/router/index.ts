@@ -6,6 +6,7 @@ import NotFound from "@/views/notFound.vue"
 import Target from "@/views/target.vue";
 import Bill from "@/views/bill.vue";
 import tag from "@/views/tag.vue";
+import EditTags from "@/views/EditTags.vue";
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,10 @@ const routes: Array<RouteConfig> = [
     {
         path: "/bill",
         component: Bill
+    },
+    {
+        path:"/edit",
+        component:EditTags
     },
     {
         path: "*",

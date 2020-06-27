@@ -1,7 +1,7 @@
 <template>
     <div class="list">
-        <ul>
-            <li v-for="(key,index) in iconMap" :key="index">
+        <div class="container">
+            <router-link class="rout-link" to="/edit" v-for="(key,index) in iconMap" :key="index">
                 <div class="icon-name">
                     <div class="icon-container">
                         <Icon :name="index"/>
@@ -9,8 +9,8 @@
                     <span>{{key}}</span>
                 </div>
                 <Icon name="right"/>
-            </li>
-        </ul>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -27,8 +27,8 @@
 
 <style lang="scss" scoped>
     .list {
-        > ul {
-            > li {
+        .container {
+            .rout-link {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;

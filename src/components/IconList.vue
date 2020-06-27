@@ -3,7 +3,6 @@
         <ul>
             <li v-for="(key,index) in iconMap" :key="index" @click="getIndex(index,key)">
                 <Icon :name="index" :class="index === itemName && 'selected'"/>
-                <span>{{key}}</span>
             </li>
         </ul>
     </div>
