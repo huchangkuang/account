@@ -1,9 +1,7 @@
 import tagStore from "@/store/tagStore";
-import recordListStore from "@/store/recordListStore";
 
 const store = {
-    ...tagStore,
-    ...recordListStore
+    ...tagStore
 }
 
 export default store

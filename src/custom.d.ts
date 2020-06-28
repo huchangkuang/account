@@ -4,3 +4,8 @@ type ReceiptData = {
     notes: string;
     time: string;
 };
+type Tag = {
+    id: number;
+    icon: string;
+    name: string;
+}

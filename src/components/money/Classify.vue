@@ -1,9 +1,9 @@
 <template>
     <div class="container">
         <ul>
-            <li v-for="(key,index) in iconMap" :key="index" @click="getIndex(index,key)">
-                <Icon :name="index" :class="index === itemName && 'selected'"/>
-                <span>{{key}}</span>
+            <li v-for="tag in iconMap" :key="tag.id" @click="getIndex(tag.icon,tag.name)">
+                <Icon :name="tag.icon" :class="tag.icon === itemName && 'selected'"/>
+                <span>{{tag.name}}</span>
             </li>
         </ul>
     </div>
@@ -15,7 +15,7 @@
 
     @Component
     export default class Classify extends Vue {
-        @Prop(Object) iconMap!: object
+        @Prop(Array) iconMap!: Tag[]
         itemName = "food"
         getIndex(index: string,key: string){
             this.itemName = index

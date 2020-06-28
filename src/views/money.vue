@@ -13,6 +13,7 @@
     import Receipt from "@/components/money/Receipt.vue";
     import Classify from "@/components/money/Classify.vue";
     import {Component} from "vue-property-decorator";
+    import store from "@/store/index2";
 
     @Component({components: {Classify, Receipt, NumberPad}})
     export default class Money extends Vue {
@@ -22,16 +23,7 @@
             notes:"",
             time:"2020-6-24"
         };
-        iconMap = {
-            food: "餐饮",
-            shop: "购物",
-            clothes: "服饰",
-            bus: "交通",
-            entertainment: "娱乐",
-            handshake: "社交",
-            chat: "通讯",
-            medical: "医疗"
-        };
+        iconMap = store.tagList
     }
 </script>
 

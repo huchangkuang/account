@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <Icon name="left"/>
+        <Icon name="left" @click="back"/>
         <div><slot/></div>
-        <div>保存</div>
+        <div @click="save">保存</div>
     </div>
 </template>
 
@@ -12,7 +12,9 @@
 
     @Component
     export default class EditTagTop extends Vue {
-
+        back(){
+            this.$router.back()
+        }
     }
 </script>
 

@@ -1,14 +1,15 @@
-import Vue from 'vue'
-import VueRouter, {RouteConfig} from 'vue-router'
-import Money from "@/views/money.vue"
-import Statistic from "@/views/statistic.vue"
-import NotFound from "@/views/notFound.vue"
+import Vue from 'vue';
+import VueRouter, {RouteConfig} from 'vue-router';
+import Money from "@/views/money.vue";
+import Statistic from "@/views/statistic.vue";
+import NotFound from "@/views/notFound.vue";
 import Target from "@/views/target.vue";
 import Bill from "@/views/bill.vue";
 import tag from "@/views/tag.vue";
-import EditTags from "@/views/EditTags.vue";
+import EditTags from "@/views/EditAddTags.vue";
+import EditModifyTags from "@/views/EditModifyTags.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 
 const routes: Array<RouteConfig> = [
@@ -37,17 +38,21 @@ const routes: Array<RouteConfig> = [
         component: Bill
     },
     {
-        path:"/edit",
-        component:EditTags
+        path: "/edit",
+        component: EditTags
+    },
+    {
+        path: "/edit/modify/:id",
+        component: EditModifyTags
     },
     {
         path: "*",
         component: NotFound
     }
-]
+];
 
 const router = new VueRouter({
     routes
-})
+});
 
-export default router
+export default router;

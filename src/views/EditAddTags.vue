@@ -3,10 +3,8 @@
         <EditTagTop class="top">
             添加支出类别
         </EditTagTop>
-        <label class="name">
-            <input type="text" placeholder="输入类别名称，建议不超过四个汉字">
-        </label>
-        <IconList class="icon-list" :icon-map="iconMap"/>
+        <EditLabel/>
+        <IconList class="icon-list" :icon-name.sync="icon"/>
     </Layout>
 </template>
 
@@ -15,21 +13,13 @@
     import {Component} from "vue-property-decorator";
     import EditTagTop from "@/components/tag/EditTagTop.vue";
     import IconList from "@/components/IconList.vue";
+    import EditLabel from "@/components/tag/EditLabel.vue";
 
     @Component({
-        components: {IconList, EditTagTop}
+        components: {EditLabel, IconList, EditTagTop}
     })
     export default class EditTags extends Vue {
-        iconMap = {
-            food: "餐饮",
-            shop: "购物",
-            clothes: "服饰",
-            bus: "交通",
-            entertainment: "娱乐",
-            handshake: "社交",
-            chat: "通讯",
-            medical: "医疗"
-        };
+        icon = ""
 
     }
 </script>
@@ -45,6 +35,7 @@
 <style lang="scss" scoped>
     .top {
         width: 100%;
+        font-weight: bold;
     }
 
     .name {
@@ -52,6 +43,7 @@
         border-bottom: 1px solid #c4c4c4;
         padding: 10px 20px;
         display: flex;
+        align-items: center;
         justify-content: center;
 
         input {
