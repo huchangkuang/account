@@ -3,6 +3,7 @@ type ReceiptData = {
     output: string;
     notes: string;
     time: string;
+    type: string;
 };
 type Tag = {
     id: number;

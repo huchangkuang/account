@@ -19,15 +19,18 @@
             <button @click="ok" class="ok">确认</button>
         </div>
         <PopWindow :appear.sync="appear" @update:value="updateNotes" :span="'备注'" :placeholder="'在此输入备注'"/>
-        <WarnWindow :show.sync="show" :span="'你有那么多钱嘛，小老弟'"/>
+        <WarnWindow :show.sync="show" span="你有那么多钱嘛，小老弟"/>
+        <Attention :show.sync="show" span="你刚刚记了一笔0元的帐"/>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
-
-    @Component
+    import Attention from "@/components/Attention.vue";
+    @Component({
+        components: {Attention}
+    })
     export default class NumberPad extends Vue {
         @Prop(String) readonly value!: string;
 
@@ -77,7 +80,7 @@
 
         ok() {
             if (this.value === "0"){
-                window.alert("你刚刚记了一笔0元的帐，今天白嫖了吗？")
+                this.show = "block"
             }else{
                 window.alert("记下一笔");
             }

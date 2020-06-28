@@ -21,7 +21,8 @@
             selectedIcon:"餐饮",
             output : "0",
             notes:"",
-            time:"2020-6-24"
+            time:"2020-6-24",
+            type:"-"
         };
         iconMap = store.tagList
     }

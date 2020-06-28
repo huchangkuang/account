@@ -15,7 +15,8 @@
     @Component
     export default class Classify extends Vue {
         @Prop(String) readonly iconName!: string;
-        icon = ["food", "shop", "clothes", "bus", "entertainment", "handshake", "chat", "medical"];
+        icon = ["food", "shop", "clothes", "bus", "entertainment", "handshake", "chat", "medical",
+            "alipay","time","star","beauty","travel","repair","snacks","sport","gift","house","social_wechat","social_sina"];
         getIcon(i: string) {
             this.$emit("update:iconName",i)
         }
