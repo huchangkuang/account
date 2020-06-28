@@ -1,7 +1,7 @@
 <template>
     <Layout class-prefix="tag-modify">
-        <EditTagTop class="edit" :tag="tag" title="编辑标签" />
-        <EditInput :value.sync="tag.name"  />
+        <EditTagTop class="edit" :tag="tag" title="编辑标签"/>
+        <EditInput :value.sync="tag.name" />
         <IconList class="icon-list" :icon-name.sync="tag.icon"/>
         <div class="delete" @click="remove">
             <Icon name="delete"/>

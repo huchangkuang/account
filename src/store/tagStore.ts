@@ -59,6 +59,11 @@ const tagStore = {
         this.tagList.splice(index, 1);
     },
     createTag(icon: string,name: string){
+        for (let i=0 ;i < this.tagList.length;i++){
+            if (this.tagList[i].name === name){
+                return "duplicated"
+            }
+        }
         this.tagList.push({
             id:idCreator(),
             icon:icon,
