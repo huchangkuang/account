@@ -20,7 +20,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .lay-content{
         display: flex;
         flex-direction: column;
