@@ -22,7 +22,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .tag-content {
         display: flex;
         flex-direction: column;

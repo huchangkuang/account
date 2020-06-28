@@ -33,7 +33,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .tag-modify-content {
         display: flex;
         flex-direction: column;
