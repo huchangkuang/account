@@ -1,7 +1,8 @@
 <template>
     <label>
         <span>标签名</span>
-        <input type="text" :value="value" placeholder="输入类别名称，建议不超过四个汉字">
+        <input type="text" :value="value" placeholder="输入类别名称，建议不超过四个汉字"
+               @input="input($event.target.value)">
     </label>
 </template>
 
@@ -11,8 +12,11 @@
 
     @Component
     export default class EditLabel extends Vue {
-        @Prop(String) readonly value!: string
 
+        @Prop(String) value!: string
+        input(value: string){
+            this.$emit('update:value',value)
+        }
     }
 </script>
 

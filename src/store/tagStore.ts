@@ -1,4 +1,6 @@
-const iconMap: Tag[]= [
+import idCreator from "@/lib/createId";
+
+const iconMap: Tag[] = [
     {
         id: 0,
         icon: "food",
@@ -39,13 +41,30 @@ const iconMap: Tag[]= [
 
 const tagStore = {
     tagList: [] as Tag[],
-    fetch(){
-       this.tagList = JSON.parse(window.localStorage.getItem("iconMap") || JSON.stringify(iconMap))
-        return this.tagList
+    fetch() {
+        this.tagList = JSON.parse(window.localStorage.getItem("iconMap") || JSON.stringify(iconMap));
+        return this.tagList;
     },
-    findTag(id: string){
-        return this.tagList.filter(t => t.id.toString() === id)[0]
+    findTag(id: string) {
+        return this.tagList.filter(t => t.id.toString() === id)[0];
     },
+    deleteTag(id: string) {
+        let index = -1;
+        for (let i = 0; i < this.tagList.length; i++) {
+            if (this.tagList[i].id === parseInt(id)) {
+                index = i;
+                break;
+            }
+        }
+        this.tagList.splice(index, 1);
+    },
+    createTag(icon: string,name: string){
+        this.tagList.push({
+            id:idCreator(),
+            icon:icon,
+            name:name
+        })
+    }
 };
-tagStore.fetch()
+tagStore.fetch();
 export default tagStore;

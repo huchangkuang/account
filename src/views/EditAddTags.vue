@@ -1,9 +1,7 @@
 <template>
     <Layout class-prefix="tag">
-        <EditTagTop class="top">
-            添加支出类别
-        </EditTagTop>
-        <EditLabel/>
+        <EditTagTop class="top" :icon="icon" :name="value" title="添加支出类别">保存</EditTagTop>
+        <EditInput :value.sync="value"/>
         <IconList class="icon-list" :icon-name.sync="icon"/>
     </Layout>
 </template>
@@ -13,14 +11,14 @@
     import {Component} from "vue-property-decorator";
     import EditTagTop from "@/components/tag/EditTagTop.vue";
     import IconList from "@/components/IconList.vue";
-    import EditLabel from "@/components/tag/EditLabel.vue";
+    import EditInput from "@/components/tag/EditInput.vue";
 
     @Component({
-        components: {EditLabel, IconList, EditTagTop}
+        components: {EditInput, IconList, EditTagTop}
     })
     export default class EditTags extends Vue {
         icon = ""
-
+        value = ""
     }
 </script>
 

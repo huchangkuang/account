@@ -1,25 +1,38 @@
 <template>
     <div class="container">
         <Icon name="left" @click="back"/>
-        <div><slot/></div>
-        <div @click="save">保存</div>
+        <div>
+            {{title}}
+        </div>
+        <div @click="saveTag"><slot/></div>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
+    import store from "@/store/index2";
 
     @Component
     export default class EditTagTop extends Vue {
-        back(){
-            this.$router.back()
+        @Prop(String) readonly icon!: string;
+        @Prop(String) readonly name!: string;
+        @Prop(String) readonly title!: string;
+
+        back() {
+            this.$router.back();
+        }
+
+        saveTag() {
+            store.createTag(this.icon, this.name);
+            this.$router.back();
         }
     }
 </script>
 
 <style lang="scss" scoped>
     @import "~@/assets/style/helper.scss";
+
     .container {
         display: flex;
         justify-content: space-between;

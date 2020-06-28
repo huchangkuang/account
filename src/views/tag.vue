@@ -39,7 +39,4 @@
     .set-tag {
         flex-grow: 1;
     }
-    .add {
-
-    }
 </style>

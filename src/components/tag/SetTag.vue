@@ -22,7 +22,6 @@
     @Component
     export default class SetTag extends Vue {
         iconMap = store.tagList
-
     }
 </script>
 
