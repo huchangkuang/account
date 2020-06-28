@@ -20,7 +20,7 @@
         </div>
         <PopWindow :appear.sync="appear" @update:value="updateNotes" :span="'备注'" :placeholder="'在此输入备注'"/>
         <WarnWindow :show.sync="show" span="你有那么多钱嘛，小老弟"/>
-        <Attention :show.sync="show" span="你刚刚记了一笔0元的帐"/>
+        <Attention :show.sync="show" span="你刚刚记了一笔0元的账" :record="record"/>
     </div>
 </template>
 
@@ -28,11 +28,13 @@
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
     import Attention from "@/components/Attention.vue";
+    import store from "@/store/index2";
     @Component({
         components: {Attention}
     })
     export default class NumberPad extends Vue {
         @Prop(String) readonly value!: string;
+        @Prop(Object) readonly record!: ReceiptData
 
         appear = "none"
         show = "none"
@@ -82,7 +84,9 @@
             if (this.value === "0"){
                 this.show = "block"
             }else{
+                store.createRecord(this.record)
                 window.alert("记下一笔");
+                this.$emit("update:value","0")
             }
         }
     }

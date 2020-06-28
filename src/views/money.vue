@@ -3,7 +3,9 @@
         <Type/>
         <Classify :icon-map="iconMap" @update:classify="receiptData.selectedIcon = $event"/>
         <Receipt :receipt-data="receiptData"/>
-        <NumberPad :value.sync="receiptData.output" @update:notes="receiptData.notes=$event"/>
+        <NumberPad :value.sync="receiptData.output"
+                   @update:notes="receiptData.notes=$event"
+                   :record="receiptData" @update:record="updateRecord"/>
     </Layout>
 </template>
 
@@ -21,10 +23,14 @@
             selectedIcon:"餐饮",
             output : "0",
             notes:"",
-            time:"2020-6-24",
+            time:"2020-6-28",
             type:"-"
         };
         iconMap = store.tagList
+        updateRecord(event: ReceiptData){
+            store.recordList.push(event)
+            store.saveRecord()
+        }
     }
 </script>
 

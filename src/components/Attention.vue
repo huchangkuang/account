@@ -14,13 +14,16 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
+    import store from "@/store/index2";
 
     @Component
     export default class WarnWindow extends Vue {
         @Prop(String) readonly span!: string
         @Prop(String) readonly show!: string;
+        @Prop(Object) readonly record!: ReceiptData
         write(){
             this.$emit("update:show","none")
+            store.createRecord(this.record)
             window.alert("记下一笔")
         }
         cancel(){

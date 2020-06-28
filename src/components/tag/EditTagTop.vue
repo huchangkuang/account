@@ -43,7 +43,7 @@
                 }else{
                     store.createTag(this.icon, this.name);
                     this.goBack()
-                    store.saveToLocal()
+                    store.saveTag()
                 }
 
             }

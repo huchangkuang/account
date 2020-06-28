@@ -41,14 +41,14 @@ const iconMap: Tag[] = [
 
 const tagStore = {
     tagList: [] as Tag[],
-    fetch() {
+    fetchTag() {
         this.tagList = JSON.parse(window.localStorage.getItem("iconMap") || JSON.stringify(iconMap));
         return this.tagList;
     },
     findTag(id: string) {
         return this.tagList.filter(t => t.id.toString() === id)[0];
     },
-    saveToLocal(){
+    saveTag(){
         window.localStorage.setItem("iconMap",JSON.stringify(this.tagList))
     },
     deleteTag(id: string) {
@@ -60,7 +60,7 @@ const tagStore = {
             }
         }
         this.tagList.splice(index, 1);
-        this.saveToLocal()
+        this.saveTag()
     },
     createTag(icon: string,name: string){
         for (let i=0 ;i < this.tagList.length;i++){
@@ -73,9 +73,9 @@ const tagStore = {
             icon:icon,
             name:name
         })
-        this.saveToLocal()
+        this.saveTag()
 
     }
 };
-tagStore.fetch();
+tagStore.fetchTag();
 export default tagStore;
