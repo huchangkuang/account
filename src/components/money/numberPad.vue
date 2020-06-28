@@ -20,7 +20,7 @@
         </div>
         <PopWindow :appear.sync="appear" @update:value="updateNotes" :span="'备注'" :placeholder="'在此输入备注'"/>
         <WarnWindow :show.sync="show" span="你有那么多钱嘛，小老弟"/>
-        <Attention :show.sync="show" span="你刚刚记了一笔0元的账" :record="record"/>
+        <Attention :show.sync="showAttention" span="你刚刚记了一笔0元的账" :record="record"/>
     </div>
 </template>
 
@@ -36,6 +36,7 @@
         @Prop(String) readonly value!: string;
         @Prop(Object) readonly record!: ReceiptData
 
+        showAttention = "none"
         appear = "none"
         show = "none"
         inputNotes(){
@@ -82,7 +83,7 @@
 
         ok() {
             if (this.value === "0"){
-                this.show = "block"
+                this.showAttention = "block"
             }else{
                 store.createRecord(this.record)
                 window.alert("记下一笔");
