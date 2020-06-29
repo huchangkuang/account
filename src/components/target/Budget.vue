@@ -38,11 +38,11 @@
     @Component
     export default class Budget extends Vue {
         appear = "none";
-        deg = 0;
-        percent = 0;
         expense = 0;
-        budget = 0;
-        remain = 0;
+        budget = JSON.parse(window.localStorage.getItem("budget") || "0");
+        remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense;
+        percent = this.remain / this.budget;
+        deg = this.percent * 360 || 0;
         show = "none"
         span = ""
         spanNotes = ["0预算，你要修仙？", "负预算是闹哪样？", "输入数字呀！"]
@@ -51,13 +51,18 @@
             this.appear = "block";
         }
 
+        saveBudget(budget: number){
+            window.localStorage.setItem("budget",budget.toString())
+        }
+
         updateBudget(event: string) {
             const number = parseFloat(event);
             if (number > 0) {
-                this.budget = number;
+                this.budget = number
                 this.remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense;
                 this.percent = this.remain / this.budget;
                 this.deg = this.percent * 360;
+                this.saveBudget(this.budget)
             } else if (number === 0) {
                 this.span = this.spanNotes[0]
                 this.show = "block"
