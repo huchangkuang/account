@@ -40,41 +40,39 @@
         appear = "none";
         expense = 0;
         budget = JSON.parse(window.localStorage.getItem("budget") || "0");
-        remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense;
-        percent = this.remain / this.budget;
+        remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense || 0;
+        percent = this.remain / this.budget || 0;
         deg = this.percent * 360 || 0;
-        show = "none"
-        span = ""
-        spanNotes = ["0预算，你要修仙？", "负预算是闹哪样？", "输入数字呀！"]
+        show = "none";
+        span = "";
+        spanNotes = ["0预算，你要修仙？", "负预算是闹哪样？", "输入数字呀！"];
 
         setBudget() {
             this.appear = "block";
         }
 
-        saveBudget(budget: number){
-            window.localStorage.setItem("budget",budget.toString())
+        saveBudget(budget: number) {
+            window.localStorage.setItem("budget", budget.toString());
         }
 
         updateBudget(event: string) {
             const number = parseFloat(event);
             if (number > 0) {
-                this.budget = number
+                this.budget = number;
                 this.remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense;
                 this.percent = this.remain / this.budget;
                 this.deg = this.percent * 360;
-                this.saveBudget(this.budget)
+                this.saveBudget(this.budget);
             } else if (number === 0) {
-                this.span = this.spanNotes[0]
-                this.show = "block"
+                this.span = this.spanNotes[0];
+                this.show = "block";
             } else if (number < 0) {
-                this.span = this.spanNotes[1]
-                this.show = "block"
+                this.span = this.spanNotes[1];
+                this.show = "block";
             } else {
-                this.span = this.spanNotes[2]
-                this.show = "block"
+                this.span = this.spanNotes[2];
+                this.show = "block";
             }
-
-
         }
     }
 </script>
