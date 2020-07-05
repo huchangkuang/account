@@ -3,6 +3,7 @@
         <StatisticType @update:type="type=$event" @update:date="date=$event"/>
         <div class="line">
             <div >{{type === "-" ? "支出" : "收入"}}统计</div>
+            <BasicLine :option="option"/>
             <NoData />
         </div>
         <div class="bar">
@@ -20,11 +21,27 @@
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
     import store from "@/store/index2";
-    @Component
+    import BasicLine from "@/components/statistic/BasicLine.vue";
+    @Component({
+        components: {BasicLine}
+    })
     export default class Statistic extends Vue {
         record = store.recordList
         type = "-"
         date = "day"
+        option = {
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                type: 'line'
+            }]
+        };
     }
 </script>
 

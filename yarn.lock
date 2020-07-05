@@ -1114,8 +1114,8 @@
 
 "@types/echarts@^4.6.3":
   version "4.6.3"
-  resolved "https://registry.npm.taobao.org/@types/echarts/download/@types/echarts-4.6.3.tgz?cache=0&sync_timestamp=1593094668922&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fecharts%2Fdownload%2F%40types%2Fecharts-4.6.3.tgz#227b33b106203ceb2ca4fa51760f406618caa89a"
-  integrity sha1-InszsQYgPOsspPpRdg9AZhjKqJo=
+  resolved "https://registry.yarnpkg.com/@types/echarts/-/echarts-4.6.3.tgz#227b33b106203ceb2ca4fa51760f406618caa89a"
+  integrity sha512-XsDsLtPDxSGPqcHvVEbH+z5r9lPiduNOf4aL3NjGprQ/4SliDiTS7DErimHpVdiEOoVFzwjn2usvgLOb1JqOJA==
   dependencies:
     "@types/zrender" "*"
 
