@@ -32,13 +32,13 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
 
 
     @Component
     export default class Budget extends Vue {
+        @Prop(Number) readonly expense!: number
         appear = "none";
-        expense = 0;
         budget = JSON.parse(window.localStorage.getItem("budget") || "0");
         remain = this.budget - this.expense < 0 ? 0 : this.budget - this.expense || 0;
         percent = this.remain / this.budget || 0;

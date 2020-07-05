@@ -8,15 +8,15 @@
         <ul class="message">
             <li>
                 <div class="description">收入</div>
-                <div class="number">0.00</div>
+                <div class="number">{{income}}</div>
             </li>
             <li>
                 <div class="description">支出</div>
-                <div class="number">0.00</div>
+                <div class="number">{{expense}}</div>
             </li>
             <li>
                 <div class="description">结余</div>
-                <div class="number">0.00</div>
+                <div class="number">{{income-expense}}</div>
             </li>
         </ul>
     </div>
@@ -24,11 +24,12 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
 
     @Component
     export default class HowMuch extends Vue {
-
+        @Prop(Number) readonly income!: number
+        @Prop(Number) readonly expense!: number
     }
 </script>
 
