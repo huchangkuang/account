@@ -4,37 +4,65 @@ const iconMap: Tag[] = [
     {
         id: 0,
         icon: "food",
-        name: "餐饮"
+        name: "餐饮",
+        type: "-"
     },
     {
         id: 1,
         icon: "shop",
-        name: "购物"
+        name: "购物",
+        type: "-"
     },
     {
         id: 2,
         icon: "clothes",
-        name: "服饰"
+        name: "服饰",
+        type: "-"
     }, {
         id: 3,
         icon: "bus",
-        name: "交通"
+        name: "交通",
+        type: "-"
     }, {
         id: 4,
         icon: "entertainment",
-        name: "娱乐"
+        name: "娱乐",
+        type: "-"
     }, {
         id: 5,
         icon: "handshake",
-        name: "社交"
+        name: "社交",
+        type: "-"
     }, {
         id: 6,
         icon: "chat",
-        name: "通讯"
+        name: "通讯",
+        type: "-"
     }, {
         id: 7,
         icon: "medical",
-        name: "医疗"
+        name: "医疗",
+        type: "-"
+    },{
+        id: 8,
+        icon: "part_time_job",
+        name: "兼职",
+        type: "+"
+    },{
+        id: 9,
+        icon: "salary",
+        name: "工资",
+        type: "+"
+    },{
+        id: 10,
+        icon: "bonus",
+        name: "奖金",
+        type: "+"
+    },{
+        id: 11,
+        icon: "lottery",
+        name: "彩票",
+        type: "+"
     }
 ];
 
@@ -62,7 +90,7 @@ const tagStore = {
         this.tagList.splice(index, 1);
         this.saveTag()
     },
-    createTag(icon: string,name: string){
+    createTag(icon: string,name: string,type: string){
         for (let i=0 ;i < this.tagList.length;i++){
             if (this.tagList[i].name === name){
                 return "duplicated"
@@ -71,7 +99,8 @@ const tagStore = {
         this.tagList.push({
             id:idCreator(),
             icon:icon,
-            name:name
+            name:name,
+            type:type
         })
         this.saveTag()
 

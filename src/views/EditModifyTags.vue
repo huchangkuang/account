@@ -12,7 +12,7 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
     import EditTagTop from "@/components/tag/EditTagTop.vue";
     import IconList from "@/components/IconList.vue";
     import store from '@/store/tagStore.ts';
@@ -21,8 +21,8 @@
         components: {EditInput, IconList, EditTagTop}
     })
     export default class EditModifyTags extends Vue {
-
-        tag: Tag = {id:0, icon:"", name:""}
+        @Prop(String) readonly type!: string;
+        tag: Tag = {id:0, icon:"", name:"",type:"-"}
         created(){
             this.tag = store.findTag(this.$route.params.id)
         }

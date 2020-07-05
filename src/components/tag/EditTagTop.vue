@@ -21,6 +21,7 @@
         @Prop(String) readonly icon!: string;
         @Prop(String) readonly name!: string;
         @Prop(String) readonly title!: string;
+        @Prop(String) readonly type!: string;
 
         show = "none";
         span = "";
@@ -38,10 +39,10 @@
             } else if (!this.icon) {
                 this.popWarn("请选择一个图标")
             } else {
-                if (store.createTag(this.icon, this.name) === "duplicated"){
+                if (store.createTag(this.icon, this.name,this.type) === "duplicated"){
                     this.popWarn("标签名已经存在")
                 }else{
-                    store.createTag(this.icon, this.name);
+                    store.createTag(this.icon, this.name,this.type);
                     this.goBack()
                     store.saveTag()
                 }

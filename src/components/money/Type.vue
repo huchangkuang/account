@@ -18,6 +18,7 @@
         type = "-"; //"-"表示支出，"+"表示收入
         selectType(type: string) {
             this.type = type;
+            this.$emit("update:type",this.type)
         }
     }
 </script>

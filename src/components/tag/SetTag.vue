@@ -1,7 +1,8 @@
 <template>
     <div class="list">
         <div class="container">
-            <router-link class="rout-link" :to="`/edit/modify/${tag.id}`" v-for="tag in iconMap" :key="tag.id">
+            <router-link class="rout-link" :to="`/edit/modify/${tag.id}`"
+                         v-for="tag in iconMap.filter(item=>item.type===type)" :key="tag.id">
                 <div class="icon-name">
                     <div class="icon-container">
                         <Icon :name="tag.icon"/>
@@ -16,11 +17,12 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
     import store from "@/store/index2";
 
     @Component
     export default class SetTag extends Vue {
+        @Prop(String) readonly type!: string;
         iconMap = store.tagList
     }
 </script>

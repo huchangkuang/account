@@ -9,4 +9,5 @@ type Tag = {
     id: number;
     icon: string;
     name: string;
+    type: string;
 }

@@ -1,7 +1,7 @@
 <template>
     <Layout class-prefix="layout">
-        <Type/>
-        <Classify :icon-map="iconMap" @update:classify="receiptData.selectedIcon = $event"/>
+        <Type @update:type="updateType"/>
+        <Classify :icon-map="iconMap" @update:classify="receiptData.selectedIcon = $event" :type="receiptData.type"/>
         <Receipt :receipt-data="receiptData"/>
         <NumberPad :value.sync="receiptData.output"
                    @update:notes="receiptData.notes=$event"
@@ -30,6 +30,9 @@
         updateRecord(event: ReceiptData){
             store.recordList.push(event)
             store.saveRecord()
+        }
+        updateType(event: string){
+            this.receiptData.type = event
         }
     }
 </script>

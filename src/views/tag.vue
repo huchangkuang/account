@@ -1,8 +1,8 @@
 <template>
     <Layout class-prefix="lay">
         <div class="text">分类设置</div>
-        <Type/>
-        <SetTag class="set-tag" />
+        <Type @update:type="updateType"/>
+        <SetTag class="set-tag" :type="type"/>
         <AddClassify class="add" />
     </Layout>
 </template>
@@ -16,7 +16,10 @@
         components: {AddClassify, SetTag}
     })
     export default class Tag extends Vue {
-
+        type = "-"
+        updateType(event: string){
+            this.type = event
+        }
     }
 </script>
 
