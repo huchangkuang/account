@@ -59,6 +59,11 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+            li {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
     }
 </style>
