@@ -23,10 +23,11 @@
             selectedIcon:"餐饮",
             output : "0",
             notes:"",
-            time:"2020-6-28",
+            time: "2020-07-05",
             type:"-"
         };
         iconMap = store.tagList
+        now = new Date()
         updateRecord(event: ReceiptData){
             store.recordList.push(event)
             store.saveRecord()

@@ -5,7 +5,7 @@
             <div class="income" :class="type === '+' && 'selected'" @click="changeType('+')">收入</div>
         </div>
         <div class="date">
-            <div class="week" :class="date==='week' && 'selected'" @click="changeDate('week')">周</div>
+            <div class="week" :class="date==='day' && 'selected'" @click="changeDate('day')">日</div>
             <div class="month" :class="date==='month' && 'selected'" @click="changeDate('month')">月</div>
             <div class="year" :class="date==='year' && 'selected'" @click="changeDate('year')">年</div>
         </div>
@@ -19,12 +19,14 @@
     @Component
     export default class StatisticType extends Vue {
         type = "-"
-        date = "week"
+        date = "day"
         changeType(type: string){
             this.type = type
+            this.$emit("update:type",this.type)
         }
         changeDate(date: string){
             this.date = date
+            this.$emit("update:date",this.date)
         }
     }
 </script>
