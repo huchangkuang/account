@@ -3,8 +3,8 @@
         <StatisticType @update:type="type=$event" @update:date="date=$event"/>
         <div class="line">
             <div >{{type === "-" ? "支出" : "收入"}}统计</div>
-            <BasicLine :option="option"/>
-            <NoData />
+            <BasicLine :option="option" v-if="true" class="basic-line"/>
+            <NoData v-else/>
         </div>
         <div class="bar">
             <div >{{type === "-" ? "支出" : "收入"}}排行</div>
@@ -53,6 +53,10 @@
             flex-grow: 1;
             border-bottom: 1px solid #b5b5b5;
             padding: 10px;
+            .basic-line {
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
         .bar {
             flex-grow: 1;
