@@ -16,6 +16,7 @@
     import Classify from "@/components/money/Classify.vue";
     import {Component} from "vue-property-decorator";
     import store from "@/store/index2";
+    import dayjs from "dayjs"
 
     @Component({components: {Classify, Receipt, NumberPad}})
     export default class Money extends Vue {
@@ -23,7 +24,7 @@
             selectedIcon:"餐饮",
             output : "0",
             notes:"",
-            time: "2020-07-05",
+            time: dayjs().format("YYYY-MM-DD"),
             type:"-"
         };
         iconMap = store.tagList
@@ -35,6 +36,17 @@
         updateType(event: string){
             this.receiptData.type = event
         }
+        formatTime(){
+            const now = new Date()
+            console.log(now)
+            console.log(now.getDate())
+            console.log(dayjs().get("y"))
+            console.log(dayjs().format("YYYY-MM-DD"))
+            return {
+                day:now.getDate()
+            }
+        }
+        xxx = this.formatTime()
     }
 </script>
 
