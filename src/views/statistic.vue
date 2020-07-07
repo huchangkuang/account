@@ -7,11 +7,6 @@
                 <Chart :option="optionLine" v-if="true" class="chart"/>
                 <NoData v-else/>
             </div>
-            <div class="bar">
-                <div>{{type === "-" ? "支出" : "收入"}}排行</div>
-                <Chart :option="optionBar" v-if="true" class="chart"/>
-                <NoData v-else/>
-            </div>
             <div class="pie">
                 <div>分类占比</div>
                 <Chart :option="optionPie" v-if="true" class="chart"/>
@@ -26,19 +21,24 @@
     import {Component} from "vue-property-decorator";
     import store from "@/store/index2";
     import Chart from "@/components/statistic/Chart.vue";
+    import dayjs from "dayjs";
+    import clone from "@/lib/clone";
 
     @Component({
         components: {Chart}
     })
     export default class Statistic extends Vue {
-        record = store.recordList;
         type = "-";
-        date = "day";
-
+        date: "day"|"month"|"year" = "day";
         optionLine = {
+            title: {
+                text: '支出统计',
+                subtext: '纯属虚构',
+                left: 'center'
+            },
             xAxis: {
                 type: 'category',
-                data: this.xData(this.date),
+                data: [1,2,3,4,5],
                 axisTick: {
                     interval: 1
                 }
@@ -51,50 +51,9 @@
                 type: 'line'
             }]
         };
-        optionBar = {
-            title: {
-                text: '世界人口总量',
-                subtext: '数据来自网络'
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            legend: {
-                data: ['2011年', '2012年']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'value',
-                boundaryGap: [0, 0.01]
-            },
-            yAxis: {
-                type: 'category',
-                data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
-            },
-            series: [
-                {
-                    name: '2011年',
-                    type: 'bar',
-                    data: [18203, 23489, 29034, 104970, 131744, 630230]
-                },
-                {
-                    name: '2012年',
-                    type: 'bar',
-                    data: [19325, 23438, 31000, 121594, 134141, 681807]
-                }
-            ]
-        };
         optionPie = {
             title: {
-                text: '某站点用户访问来源',
+                text: '支出分类占比(总)',
                 subtext: '纯属虚构',
                 left: 'center'
             },
@@ -105,7 +64,7 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                data: this.getGroupRecord().pieName
             },
             series: [
                 {
@@ -113,13 +72,7 @@
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],
-                    data: [
-                        {value: 335, name: '直接访问'},
-                        {value: 310, name: '邮件营销'},
-                        {value: 234, name: '联盟广告'},
-                        {value: 135, name: '视频广告'},
-                        {value: 1548, name: '搜索引擎'}
-                    ],
+                    data: this.getGroupRecord().pieValue,
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,
@@ -130,6 +83,52 @@
                 }
             ]
         };
+        getGroupRecord(){
+            type DataOrigin = {
+                lineX: string[];
+                lineY: number[];
+                pieValue: { value: number; name: string }[];
+                pieName: string[];
+            }
+            console.log("type")
+            console.log(this.type)
+            const newRecord = (clone(store.recordList) as ReceiptData[]).filter(i => i.type === this.type);
+            console.log(store.recordList);
+            console.log("newRecord");
+            console.log(newRecord);
+            const dataOrigin: DataOrigin = {
+                lineX: [],
+                lineY: [],
+                pieValue: [],
+                pieName: []
+            };
+            for (let i = 0; i < newRecord.length; i++) {
+                const current = newRecord[i];
+                if (dataOrigin.lineX.indexOf(current.time) < 0) {
+                    dataOrigin.lineX.push(current.time);
+                }
+                if (dataOrigin.pieName.indexOf(current.selectedIcon) < 0) {
+                    dataOrigin.pieName.push(current.selectedIcon);
+                    console.log(dataOrigin.pieName);
+                    console.log(current.selectedIcon);
+                }
+            }
+            dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+            for (let i = 0; i < dataOrigin.lineX.length; i++) {
+                const current = dataOrigin.lineX[i];
+                dataOrigin.lineY.push(newRecord.reduce((sum, i) => i.time === current ? sum + parseFloat(i.output) : sum, 0));
+            }
+            for (let i = 0; i < dataOrigin.pieName.length; i++) {
+                const current = dataOrigin.pieName[i];
+                dataOrigin.pieValue.push({
+                    value: newRecord.reduce((sum, i) => i.selectedIcon === current ? sum + parseFloat(i.output) : sum, 0),
+                    name: current
+                });
+            }
+            console.log(dataOrigin);
+            return dataOrigin;
+        }
+
         getMonthDay(year: number, month: number) {
             return new Date(year, month + 1, 0).getDate();
         }
@@ -145,7 +144,7 @@
                     list.push(i + 1);
                 }
             }
-                return list;
+            return list;
         }
     }
 </script>
@@ -158,10 +157,12 @@
         .chart {
             flex-grow: 1;
             overflow: auto;
+
             .chart {
                 margin-left: auto;
                 margin-right: auto;
             }
+
             .line {
                 flex-grow: 1;
                 border-bottom: 1px solid #b5b5b5;

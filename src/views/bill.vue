@@ -29,6 +29,7 @@
     import {Component} from "vue-property-decorator";
     import store from "@/store/index2";
     import dayjs from "dayjs";
+    import clone from "@/lib/clone";
 
     @Component
     export default class Bill extends Vue {
@@ -36,7 +37,7 @@
         date: "day"|"month"|"year" = "day";
         record = store.recordList;
         getGroupRecord(date: "day"|"month"|"year") {
-            const newRecord = this.record.filter(item => item.type === this.type);
+            const newRecord = (clone(this.record) as ReceiptData[]).filter(item => item.type === this.type);
             const result = [{title: this.formatTime(date,newRecord[0].time), items: [newRecord[0]],total:0}];
             const titleList = [];
             for (let i = 1; i < newRecord.length; i++) {
