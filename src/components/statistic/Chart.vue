@@ -18,7 +18,6 @@
             container.style.width = `${width*0.9}px`
             container.style.height = `${width*0.5}px`
             const chart = echarts.init(container)
-            console.log(chart)
             chart.setOption(this.option)
         }
     }

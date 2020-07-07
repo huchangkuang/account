@@ -35,7 +35,6 @@
         type = "-";
         date: "day"|"month"|"year" = "day";
         record = store.recordList;
-
         getGroupRecord(date: "day"|"month"|"year") {
             const newRecord = this.record.filter(item => item.type === this.type);
             const result = [{title: this.formatTime(date,newRecord[0].time), items: [newRecord[0]],total:0}];

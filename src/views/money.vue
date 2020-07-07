@@ -36,17 +36,6 @@
         updateType(event: string){
             this.receiptData.type = event
         }
-        formatTime(){
-            const now = new Date()
-            console.log(now)
-            console.log(now.getDate())
-            console.log(dayjs().get("y"))
-            console.log(dayjs().format("YYYY-MM-DD"))
-            return {
-                day:now.getDate()
-            }
-        }
-        xxx = this.formatTime()
     }
 </script>
 
