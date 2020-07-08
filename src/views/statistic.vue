@@ -50,35 +50,38 @@
                 pieValue: [],
                 pieName: []
             };
+            const {lineX, lineY, pieValue, pieName} = dataOrigin
             for (let i = 0; i < newRecord.length; i++) {
                 const current = newRecord[i];
-                if (dataOrigin.lineX.indexOf(this.formatTime(date,current.time)) < 0) {
-                    dataOrigin.lineX.push(this.formatTime(date,current.time));//"MM-DD"
+                if (lineX.indexOf(this.formatTime(date,current.time)) < 0) {
+                    lineX.push(this.formatTime(date,current.time));//"MM-DD"
                 }
-                if (dataOrigin.pieName.indexOf(current.selectedIcon) < 0) {
-                    dataOrigin.pieName.push(current.selectedIcon);
+                if (pieName.indexOf(current.selectedIcon) < 0) {
+                    pieName.push(current.selectedIcon);
                 }
             }
+            //["06-15","07-07"]
+            lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+            const maxDate = lineX[lineX.length-1]
+            lineX.splice(0,lineX.length)
+            this.fillDate(maxDate,12,lineX,date)
+            lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+            //["07-04","07-05","07-06","07-07"]
 
-            dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
-            const maxDate = dataOrigin.lineX[dataOrigin.lineX.length-1]
-            dataOrigin.lineX.splice(0,dataOrigin.lineX.length)
-            this.fillDate(maxDate,12,dataOrigin.lineX,date)
-            dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
-
-            for (let i = 0; i < dataOrigin.lineX.length; i++) {
-                const current = dataOrigin.lineX[i];
-                dataOrigin.lineY.push(newRecord.reduce((sum, i) => this.formatTime(date,i.time) === this.formatTime(date,current) ?
+            for (let i = 0; i < lineX.length; i++) {
+                const current = lineX[i];
+                lineY.push(newRecord.reduce((sum, i) => this.formatTime(date,i.time) === this.formatTime(date,current) ?
                     sum + parseFloat(i.output) :
                     sum, 0));
             }
-            for (let i = 0; i < dataOrigin.pieName.length; i++) {
-                const current = dataOrigin.pieName[i];
-                dataOrigin.pieValue.push({
+            for (let i = 0; i < pieName.length; i++) {
+                const current = pieName[i];
+                pieValue.push({
                     value: newRecord.reduce((sum, i) => i.selectedIcon === current ? sum + parseFloat(i.output) : sum, 0),
                     name: current
                 });
             }
+            console.log(dataOrigin)
             return dataOrigin;
         }
         fillDate(maxDate: string,n: number,arr: string[],date: "day"|"month"|"year"){
@@ -105,19 +108,20 @@
             }
             return obj[type]
         }
+        updateOptionData(){
+            const {lineX, lineY, pieValue, pieName} = this.getGroupRecord(this.type,this.date)
+            this.optionLine.xAxis.data = lineX
+            this.optionLine.series[0].data = lineY
+            this.optionPie.legend.data = pieName
+            this.optionPie.series[0].data =pieValue
+        }
         @Watch("type")
         updateLine(){
-            this.optionLine.xAxis.data = this.getGroupRecord(this.type,this.date).lineX
-            this.optionLine.series[0].data = this.getGroupRecord(this.type,this.date).lineY
-            this.optionPie.legend.data = this.getGroupRecord(this.type,this.date).pieName
-            this.optionPie.series[0].data =this.getGroupRecord(this.type,this.date).pieValue
+            this.updateOptionData()
         }
         @Watch("date")
         updatePie(){
-            this.optionLine.xAxis.data = this.getGroupRecord(this.type,this.date).lineX
-            this.optionLine.series[0].data = this.getGroupRecord(this.type,this.date).lineY
-            this.optionPie.legend.data = this.getGroupRecord(this.type,this.date).pieName
-            this.optionPie.series[0].data =this.getGroupRecord(this.type,this.date).pieValue
+            this.updateOptionData()
         }
         optionLine = {
             title: {
