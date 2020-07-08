@@ -36,39 +36,41 @@
         type = "-";
         date: "day"|"month"|"year" = "day";
         record = store.recordList
-        getGroupRecord=()=>{
+        getGroupRecord=(type: string,date: "day"|"month"|"year")=>{
             type DataOrigin = {
                 lineX: string[];
                 lineY: number[];
                 pieValue: { value: number; name: string }[];
                 pieName: string[];
             }
-            const newRecord = (clone(store.recordList) as ReceiptData[]).filter(i => i.type === this.type);
+            const newRecord = (clone(store.recordList) as ReceiptData[]).filter(i => i.type === type);
             const dataOrigin: DataOrigin = {
                 lineX: [],
                 lineY: [],
                 pieValue: [],
                 pieName: []
             };
-            const template: string[] = []
             for (let i = 0; i < newRecord.length; i++) {
                 const current = newRecord[i];
-                if (dataOrigin.lineX.indexOf(current.time) < 0) {
-                    const formatTime = dayjs(current.time).format("MM-DD")
-                    template.push(current.time)
-                    dataOrigin.lineX.push(formatTime);
+                if (dataOrigin.lineX.indexOf(this.formatTime(date,current.time)) < 0) {
+                    dataOrigin.lineX.push(this.formatTime(date,current.time));//"MM-DD"
                 }
                 if (dataOrigin.pieName.indexOf(current.selectedIcon) < 0) {
                     dataOrigin.pieName.push(current.selectedIcon);
                 }
             }
+
             dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
-            for (let i = 0; i < template.length; i++) {
-                const current = template[i];
-                dataOrigin.lineY.push(newRecord.reduce((sum, i) => i.time === current ? sum + parseFloat(i.output) : sum, 0));
-            }
-            if (dataOrigin.lineX.length>10&&dataOrigin.lineY.length>10){
-                dataOrigin.lineX.slice(dataOrigin.lineX.length-10)
+            const maxDate = dataOrigin.lineX[dataOrigin.lineX.length-1]
+            dataOrigin.lineX.splice(0,dataOrigin.lineX.length)
+            this.fillDate(maxDate,12,dataOrigin.lineX,this.date)
+            dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+
+            for (let i = 0; i < dataOrigin.lineX.length; i++) {
+                const current = dataOrigin.lineX[i];
+                dataOrigin.lineY.push(newRecord.reduce((sum, i) => this.formatTime(date,i.time) === this.formatTime(date,current) ?
+                    sum + parseFloat(i.output) :
+                    sum, 0));
             }
             for (let i = 0; i < dataOrigin.pieName.length; i++) {
                 const current = dataOrigin.pieName[i];
@@ -79,15 +81,39 @@
             }
             return dataOrigin;
         }
+        fillDate(maxDate: string,n: number,arr: string[],date: "day"|"month"|"year"){
+            const map = {
+                day:"MM-DD",
+                month:"MM",
+                year:"YYYY"
+            }
+            const template = map[date]
+            if (n>0){
+                arr.push(maxDate)
+                maxDate = dayjs(dayjs(maxDate).valueOf()-3600*24*1000).format(template)
+                n -= 1
+                this.fillDate(maxDate,n,arr,date)
+            }else {
+                return arr
+            }
+        }
+        formatTime(type: "day"|"month"|"year",time: string){
+            const obj = {
+                "day":dayjs(time).format("MM-DD"),
+                "month":dayjs(time).format("MM"),
+                "year":dayjs(time).format("YYYY")
+            }
+            return obj[type]
+        }
         optionLine = {
             title: {
                 text: '支出统计',
-                subtext: '近10天数据',
+                subtext: '近12天数据',
                 left: 'center'
             },
             xAxis: {
                 type: 'category',
-                data: this.getGroupRecord().lineX,
+                data: this.getGroupRecord(this.type,this.date).lineX,
                 axisTick: {
                     alignWithLabel:true
                 },
@@ -103,7 +129,7 @@
                 }
             },
             series: [{
-                data: this.getGroupRecord().lineY,
+                data: this.getGroupRecord(this.type,this.date).lineY,
                 type: 'line',
             }]
         };
@@ -120,15 +146,15 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: this.getGroupRecord().pieName
+                data: this.getGroupRecord(this.type,this.date).pieName
             },
             series: [
                 {
-                    name: '访问来源',
+                    name: '支出',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],
-                    data: this.getGroupRecord().pieValue,
+                    data: this.getGroupRecord(this.type,this.date).pieValue,
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,
