@@ -67,6 +67,9 @@
                 const current = template[i];
                 dataOrigin.lineY.push(newRecord.reduce((sum, i) => i.time === current ? sum + parseFloat(i.output) : sum, 0));
             }
+            if (dataOrigin.lineX.length>10&&dataOrigin.lineY.length>10){
+                dataOrigin.lineX.slice(dataOrigin.lineX.length-10)
+            }
             for (let i = 0; i < dataOrigin.pieName.length; i++) {
                 const current = dataOrigin.pieName[i];
                 dataOrigin.pieValue.push({
@@ -74,32 +77,40 @@
                     name: current
                 });
             }
-            console.log(dataOrigin);
             return dataOrigin;
         }
         optionLine = {
             title: {
                 text: '支出统计',
-                subtext: '纯属虚构',
+                subtext: '近10天数据',
                 left: 'center'
             },
             xAxis: {
                 type: 'category',
                 data: this.getGroupRecord().lineX,
-
+                axisTick: {
+                    alignWithLabel:true
+                },
+                axisLabel: {
+                  rotate:45
+                }
             },
             yAxis: {
-                type: 'value'
+                type: 'value',
+                axisLabel: {
+                    margin:4,
+                    length:3
+                }
             },
             series: [{
                 data: this.getGroupRecord().lineY,
-                type: 'line'
+                type: 'line',
             }]
         };
         optionPie = {
             title: {
                 text: '支出分类占比(总)',
-                subtext: '纯属虚构',
+                subtext: '',
                 left: 'center'
             },
             tooltip: {
@@ -124,6 +135,9 @@
                             shadowOffsetX: 0,
                             shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
+                    },
+                    label:{
+                        formatter: '{b}\n{d}%'
                     }
                 }
             ]
