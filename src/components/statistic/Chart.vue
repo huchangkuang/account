@@ -15,7 +15,7 @@
             const container = this.$refs.container as HTMLDivElement
             const width = document.documentElement.clientWidth
             container.style.width = `${width*0.9}px`
-            container.style.height = `${width*0.5}px`
+            container.style.height = `${width*0.6}px`
             const chart = echarts.init(container)
             chart.setOption(this.option)
         }

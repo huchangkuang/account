@@ -3,14 +3,19 @@
         <StatisticType @update:type="type=$event" @update:date="date=$event"/>
         <div class="chart">
             <div class="line">
-                <div>{{type === "-" ? "支出" : "收入"}}统计</div>
-                <Chart :option="optionLine" v-if="true" class="chart"/>
-                <NoData v-else/>
+                <div class="nodata" v-if="record.length===0">
+                    <div>{{type === "-" ? "支出" : "收入"}}统计</div>
+                    <NoData />
+                </div>
+                <Chart :option="optionLine" v-else/>
             </div>
             <div class="pie">
-                <div>分类占比</div>
-                <Chart :option="optionPie" v-if="true" class="chart"/>
-                <NoData v-else/>
+                <div class="nodata" v-if="record.length===0">
+                    <div>分类占比</div>
+                    <NoData/>
+                </div>
+                <Chart :option="optionPie" v-else/>
+
             </div>
         </div>
     </Layout>
@@ -30,6 +35,48 @@
     export default class Statistic extends Vue {
         type = "-";
         date: "day"|"month"|"year" = "day";
+        record = store.recordList
+        getGroupRecord=()=>{
+            type DataOrigin = {
+                lineX: string[];
+                lineY: number[];
+                pieValue: { value: number; name: string }[];
+                pieName: string[];
+            }
+            const newRecord = (clone(store.recordList) as ReceiptData[]).filter(i => i.type === this.type);
+            const dataOrigin: DataOrigin = {
+                lineX: [],
+                lineY: [],
+                pieValue: [],
+                pieName: []
+            };
+            const template: string[] = []
+            for (let i = 0; i < newRecord.length; i++) {
+                const current = newRecord[i];
+                if (dataOrigin.lineX.indexOf(current.time) < 0) {
+                    const formatTime = dayjs(current.time).format("MM-DD")
+                    template.push(current.time)
+                    dataOrigin.lineX.push(formatTime);
+                }
+                if (dataOrigin.pieName.indexOf(current.selectedIcon) < 0) {
+                    dataOrigin.pieName.push(current.selectedIcon);
+                }
+            }
+            dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+            for (let i = 0; i < template.length; i++) {
+                const current = template[i];
+                dataOrigin.lineY.push(newRecord.reduce((sum, i) => i.time === current ? sum + parseFloat(i.output) : sum, 0));
+            }
+            for (let i = 0; i < dataOrigin.pieName.length; i++) {
+                const current = dataOrigin.pieName[i];
+                dataOrigin.pieValue.push({
+                    value: newRecord.reduce((sum, i) => i.selectedIcon === current ? sum + parseFloat(i.output) : sum, 0),
+                    name: current
+                });
+            }
+            console.log(dataOrigin);
+            return dataOrigin;
+        }
         optionLine = {
             title: {
                 text: '支出统计',
@@ -38,16 +85,14 @@
             },
             xAxis: {
                 type: 'category',
-                data: [1,2,3,4,5],
-                axisTick: {
-                    interval: 1
-                }
+                data: this.getGroupRecord().lineX,
+
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                data: this.getGroupRecord().lineY,
                 type: 'line'
             }]
         };
@@ -83,69 +128,6 @@
                 }
             ]
         };
-        getGroupRecord(){
-            type DataOrigin = {
-                lineX: string[];
-                lineY: number[];
-                pieValue: { value: number; name: string }[];
-                pieName: string[];
-            }
-            console.log("type")
-            console.log(this.type)
-            const newRecord = (clone(store.recordList) as ReceiptData[]).filter(i => i.type === this.type);
-            console.log(store.recordList);
-            console.log("newRecord");
-            console.log(newRecord);
-            const dataOrigin: DataOrigin = {
-                lineX: [],
-                lineY: [],
-                pieValue: [],
-                pieName: []
-            };
-            for (let i = 0; i < newRecord.length; i++) {
-                const current = newRecord[i];
-                if (dataOrigin.lineX.indexOf(current.time) < 0) {
-                    dataOrigin.lineX.push(current.time);
-                }
-                if (dataOrigin.pieName.indexOf(current.selectedIcon) < 0) {
-                    dataOrigin.pieName.push(current.selectedIcon);
-                    console.log(dataOrigin.pieName);
-                    console.log(current.selectedIcon);
-                }
-            }
-            dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
-            for (let i = 0; i < dataOrigin.lineX.length; i++) {
-                const current = dataOrigin.lineX[i];
-                dataOrigin.lineY.push(newRecord.reduce((sum, i) => i.time === current ? sum + parseFloat(i.output) : sum, 0));
-            }
-            for (let i = 0; i < dataOrigin.pieName.length; i++) {
-                const current = dataOrigin.pieName[i];
-                dataOrigin.pieValue.push({
-                    value: newRecord.reduce((sum, i) => i.selectedIcon === current ? sum + parseFloat(i.output) : sum, 0),
-                    name: current
-                });
-            }
-            console.log(dataOrigin);
-            return dataOrigin;
-        }
-
-        getMonthDay(year: number, month: number) {
-            return new Date(year, month + 1, 0).getDate();
-        }
-
-        xData(date: string) {
-            const list = [];
-            if (date === "day") {
-                for (let i = 0; i < this.getMonthDay(2020, 7); i++) {
-                    list.push(i + 1);
-                }
-            } else if (date === "month") {
-                for (let i = 0; i < 12; i++) {
-                    list.push(i + 1);
-                }
-            }
-            return list;
-        }
     }
 </script>
 
@@ -153,31 +135,36 @@
     ::v-deep .statistic-content {
         display: flex;
         flex-direction: column;
-
         .chart {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             flex-grow: 1;
             overflow: auto;
-
-            .chart {
-                margin-left: auto;
-                margin-right: auto;
+            .nodata {
+                display:flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
             }
 
             .line {
                 flex-grow: 1;
                 border-bottom: 1px solid #b5b5b5;
                 padding: 10px;
-            }
-
-            .bar {
-                flex-grow: 1;
-                border-bottom: 1px solid #b5b5b5;
-                padding: 10px;
+                display:flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
             }
 
             .pie {
                 flex-grow: 1;
                 padding: 10px;
+                display:flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
             }
         }
     }
