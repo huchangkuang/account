@@ -23,7 +23,7 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Watch} from "vue-property-decorator";
     import store from "@/store/index2";
     import Chart from "@/components/statistic/Chart.vue";
     import dayjs from "dayjs";
@@ -63,7 +63,7 @@
             dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
             const maxDate = dataOrigin.lineX[dataOrigin.lineX.length-1]
             dataOrigin.lineX.splice(0,dataOrigin.lineX.length)
-            this.fillDate(maxDate,12,dataOrigin.lineX,this.date)
+            this.fillDate(maxDate,12,dataOrigin.lineX,date)
             dataOrigin.lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
 
             for (let i = 0; i < dataOrigin.lineX.length; i++) {
@@ -83,9 +83,9 @@
         }
         fillDate(maxDate: string,n: number,arr: string[],date: "day"|"month"|"year"){
             const map = {
-                day:"MM-DD",
-                month:"MM",
-                year:"YYYY"
+                "day":"MM-DD",
+                "month":"MM",
+                "year":"YYYY"
             }
             const template = map[date]
             if (n>0){
@@ -105,10 +105,24 @@
             }
             return obj[type]
         }
+        @Watch("type")
+        updateLine(){
+            this.optionLine.xAxis.data = this.getGroupRecord(this.type,this.date).lineX
+            this.optionLine.series[0].data = this.getGroupRecord(this.type,this.date).lineY
+            this.optionPie.legend.data = this.getGroupRecord(this.type,this.date).pieName
+            this.optionPie.series[0].data =this.getGroupRecord(this.type,this.date).pieValue
+        }
+        @Watch("date")
+        updatePie(){
+            this.optionLine.xAxis.data = this.getGroupRecord(this.type,this.date).lineX
+            this.optionLine.series[0].data = this.getGroupRecord(this.type,this.date).lineY
+            this.optionPie.legend.data = this.getGroupRecord(this.type,this.date).pieName
+            this.optionPie.series[0].data =this.getGroupRecord(this.type,this.date).pieValue
+        }
         optionLine = {
             title: {
-                text: '支出统计',
-                subtext: '近12天数据',
+                text: `${this.type==="-"?"支出":"收入"}统计`,
+                subtext: "近12天数据",
                 left: 'center'
             },
             xAxis: {
