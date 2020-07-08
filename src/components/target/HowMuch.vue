@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div class="time">
-            <div class="year">2020年</div>
-            <div class="mouth">06月</div>
+            <div class="year">{{year}}年</div>
+            <div class="mouth">{{month}}月</div>
         </div>
         <div class="line"></div>
         <ul class="message">
@@ -25,11 +25,14 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
+    import dayjs from "dayjs";
 
     @Component
     export default class HowMuch extends Vue {
         @Prop(Number) readonly income!: number
         @Prop(Number) readonly expense!: number
+        month = dayjs().format("MM")
+        year = dayjs().format("YYYY")
     }
 </script>
 
