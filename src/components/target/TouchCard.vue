@@ -49,7 +49,7 @@
             if (this.date===this.lastCard){
                 window.alert("今天已经打过卡咯")
             }else{
-                window.alert("打卡成功，保存记账的好习惯哦！")
+                window.alert("打卡成功，保持记账的好习惯哦！")
                 this.lastCard = this.date
                 this.keep += 1
                 this.save()
