@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="budget-header">
-            <div class="text">06月总预算</div>
+            <div class="text">{{month}}月总预算</div>
             <button class="setBudget" @click="setBudget">+设置预算</button>
         </div>
         <div class="budget-main">
@@ -33,6 +33,7 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
+    import dayjs from "dayjs";
 
 
     @Component
@@ -46,6 +47,7 @@
         show = "none";
         span = "";
         spanNotes = ["0预算，你要修仙？", "负预算是闹哪样？", "输入数字呀！"];
+        month = dayjs().format("MM")
 
         setBudget() {
             this.appear = "block";

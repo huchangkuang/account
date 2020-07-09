@@ -1,7 +1,7 @@
 <template>
     <div class="noData">
         <Icon name="write"/>
-        <span>暂无记录</span>
+        <span>还没有记过账哦！快去记下一笔吧</span>
     </div>
 </template>
 
