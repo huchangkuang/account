@@ -36,6 +36,7 @@
         type = "-";
         date: "day"|"month"|"year" = "day";
         record = store.recordList
+        nMap = {day:30,month:12,year:5}
         getGroupRecord=(type: string,date: "day"|"month"|"year")=>{
             type DataOrigin = {
                 lineX: string[];
@@ -64,7 +65,7 @@
             lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
             const maxDate = lineX[lineX.length-1]
             lineX.splice(0,lineX.length)
-            this.fillDate(maxDate,12,lineX,date)
+            this.fillDate(maxDate,this.nMap[date],lineX,date)
             lineX.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
             //["07-04","07-05","07-06","07-07"]
 
@@ -126,7 +127,6 @@
         optionLine = {
             title: {
                 text: `${this.type==="-"?"支出":"收入"}统计`,
-                subtext: "近12天数据",
                 left: 'center'
             },
             xAxis: {
