@@ -2,64 +2,64 @@ import idCreator from "@/lib/createId";
 
 const iconMap: Tag[] = [
     {
-        id: 0,
+        id: idCreator(),
         icon: "food",
         name: "餐饮",
         type: "-"
     },
     {
-        id: 1,
+        id: idCreator(),
         icon: "shop",
         name: "购物",
         type: "-"
     },
     {
-        id: 2,
+        id: idCreator(),
         icon: "clothes",
         name: "服饰",
         type: "-"
     }, {
-        id: 3,
+        id: idCreator(),
         icon: "bus",
         name: "交通",
         type: "-"
     }, {
-        id: 4,
+        id: idCreator(),
         icon: "entertainment",
         name: "娱乐",
         type: "-"
     }, {
-        id: 5,
+        id: idCreator(),
         icon: "handshake",
         name: "社交",
         type: "-"
     }, {
-        id: 6,
+        id: idCreator(),
         icon: "chat",
         name: "通讯",
         type: "-"
     }, {
-        id: 7,
+        id: idCreator(),
         icon: "medical",
         name: "医疗",
         type: "-"
     },{
-        id: 8,
+        id: idCreator(),
         icon: "part_time_job",
         name: "兼职",
         type: "+"
     },{
-        id: 9,
+        id: idCreator(),
         icon: "salary",
         name: "工资",
         type: "+"
     },{
-        id: 10,
+        id: idCreator(),
         icon: "bonus",
         name: "奖金",
         type: "+"
     },{
-        id: 11,
+        id: idCreator(),
         icon: "lottery",
         name: "彩票",
         type: "+"
