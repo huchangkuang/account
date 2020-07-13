@@ -146,9 +146,18 @@
                     length:3
                 }
             },
+            tooltip: {
+                triggerOn: "click"
+            },
             series: [{
+                name: "日期：金额",
                 data: this.getGroupRecord(this.type,this.date).lineY,
                 type: 'line',
+                markPoint: {
+                    data: [{
+                        type: "max"
+                    }],
+                }
             }]
         };
         optionPie = {

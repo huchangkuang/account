@@ -6,11 +6,11 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop, Watch} from "vue-property-decorator";
-    import echarts from "echarts"
+    import echarts, {EChartOption} from "echarts";
 
     @Component
     export default class BasicLine extends Vue {
-        @Prop(Object) readonly option!: object
+        @Prop(Object) readonly option!: EChartOption
         mounted(){
             const container = this.$refs.container as HTMLDivElement
             const width = document.documentElement.clientWidth
