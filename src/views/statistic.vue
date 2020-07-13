@@ -147,10 +147,10 @@
                 }
             },
             tooltip: {
-                triggerOn: "click"
+                triggerOn: "click",
+                formatter: '日期：{b}；金额：{c}'
             },
             series: [{
-                name: "日期：金额",
                 data: this.getGroupRecord(this.type,this.date).lineY,
                 type: 'line',
                 markPoint: {
