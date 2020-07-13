@@ -15,7 +15,7 @@
             <button @click="inputNotes">备注</button>
             <button @click="inputMoney">.</button>
             <button @click="inputMoney">0</button>
-            <button>今天</button>
+            <button @click="showDate">今天</button>
             <button @click="ok" class="ok">确认</button>
         </div>
         <PopWindow :appear.sync="appear" @update:value="updateNotes" :span="'备注'" :placeholder="'在此输入备注'"/>
@@ -29,13 +29,14 @@
     import {Component, Prop} from "vue-property-decorator";
     import Attention from "@/components/Attention.vue";
     import store from "@/store/index2";
+    import TimeInput from "@/components/money/TimeInput.vue";
     @Component({
-        components: {Attention}
+        components: {TimeInput, Attention}
     })
     export default class NumberPad extends Vue {
         @Prop(String) readonly value!: string;
         @Prop(Object) readonly record!: ReceiptData
-
+        @Prop(String) readonly showDateTime!: string
         showAttention = "none"
         appear = "none"
         show = "none"
@@ -44,6 +45,9 @@
         }
         updateNotes(event: string){
             this.$emit("update:notes",event)
+        }
+        showDate(){
+            this.$emit("update:showDateTime","show")
         }
         inputMoney(event: MouseEvent) {
             const number = (event.target as HTMLButtonElement).textContent;

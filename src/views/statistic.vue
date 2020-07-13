@@ -94,7 +94,7 @@
             const template = map[date]
             if (n>0){
                 arr.push(maxDate)
-                maxDate = dayjs(dayjs(maxDate).valueOf()-3600*24*1000).format(template)
+                maxDate = dayjs(maxDate).subtract(1,date).format(template)
                 n -= 1
                 this.fillDate(maxDate,n,arr,date)
             }else {

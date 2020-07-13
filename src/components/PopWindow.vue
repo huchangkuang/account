@@ -36,7 +36,6 @@
             }else {
                 this.confirmColor = "grey"
             }
-
         }
         confirm(){
             this.$emit('update:value',this.value)
