@@ -48,6 +48,14 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                @media(max-height: 580px) {
+                    font-size: 14px;
+                    height: 48px;
+                    .icon {
+                        width: 22px;
+                        height: 22px;
+                    }
+                }
                 .icon {
                     width: 24px;
                     height: 24px;

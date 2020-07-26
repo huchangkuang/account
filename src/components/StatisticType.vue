@@ -44,9 +44,11 @@
 
         > div {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
             > div {
+                margin-left: 2px;
+                margin-right: 2px;
                 border: 1px solid $height_light;
                 font-size: 16px;
                 text-align: center;
@@ -59,7 +61,7 @@
             }
         }
         .in-out {
-            width: 30%;
+            width: 40%;
             > div {
                 padding: 2px 10px;
             }
@@ -67,7 +69,7 @@
         .date {
             width: 50%;
             > div {
-                padding: 2px 18px;
+                padding: 2px 15px;
             }
         }
     }

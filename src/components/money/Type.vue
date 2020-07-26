@@ -40,6 +40,7 @@
             padding: 2px 23px;
             text-align: center;
             color: $height_light;
+            min-height: 30px;
 
             &.selected {
                 background: $height_light;

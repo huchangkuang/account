@@ -113,6 +113,9 @@
                 height: 48px;
                 background: transparent;
                 border: none;
+                @media (max-height: 580px) {
+                    height: 40px;
+                }
             }
 
             $number-bg: #f2f2f2;
