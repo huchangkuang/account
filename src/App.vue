@@ -15,5 +15,7 @@
         font-family: $font_hei;
         line-height: 1.5;
         background: $bg_color;
+        max-width: 500px;
+        margin: 0 auto;
     }
 </style>

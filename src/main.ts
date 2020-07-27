@@ -21,6 +21,10 @@ Vue.component("PopWindow",PopWindow)
 Vue.component("WarnWindow",WarnWindow)
 Vue.component("StatisticType",StatisticType)
 Vue.component("NoData",NoData)
+const width = document.documentElement.clientWidth
+if (width>500){
+  window.alert("为保证良好的体验，请尽量在手机上运行")
+}
 
 new Vue({
   router,
