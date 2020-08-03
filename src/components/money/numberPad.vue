@@ -15,7 +15,7 @@
             <button @click="inputNotes">备注</button>
             <button @click="inputMoney">.</button>
             <button @click="inputMoney">0</button>
-            <button @click="showDate">今天</button>
+            <button @click="showDate" class="time">{{beautyTime}}</button>
             <button @click="ok" class="ok">确认</button>
         </div>
         <PopWindow :appear.sync="appear" @update:value="updateNotes" :span="'备注'" :placeholder="'在此输入备注'"/>
@@ -30,6 +30,7 @@
     import Attention from "@/components/Attention.vue";
     import store from "@/store/index2";
     import TimeInput from "@/components/money/TimeInput.vue";
+    import dayjs from "dayjs";
     @Component({
         components: {TimeInput, Attention}
     })
@@ -37,9 +38,17 @@
         @Prop(String) readonly value!: string;
         @Prop(Object) readonly record!: ReceiptData
         @Prop(String) readonly showDateTime!: string
+        @Prop(String) readonly currentTime!: string
         showAttention = "none"
         appear = "none"
         show = "none"
+        get beautyTime(){
+          if (this.currentTime==dayjs().format("YYYY-MM-DD")) {
+            return "今天"
+          }else {
+            return dayjs(this.currentTime).format("YYYY-MM-DD")
+          }
+        }
         inputNotes(){
             this.appear = "block"
         }
@@ -115,6 +124,10 @@
                 border: none;
                 @media (max-height: 580px) {
                     height: 40px;
+                    word-break: break-word;
+                  &.time {
+                    font-size: 12px;
+                  }
                 }
             }
 

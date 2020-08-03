@@ -82,7 +82,6 @@
                     name: current
                 });
             }
-            console.log(dataOrigin)
             return dataOrigin;
         }
         fillDate(maxDate: string,n: number,arr: string[],date: "day"|"month"|"year"){
