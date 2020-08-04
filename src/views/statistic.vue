@@ -37,6 +37,9 @@
         date: "day"|"month"|"year" = "day";
         record = store.recordList
         nMap = {day:30,month:12,year:5}
+        get typeName(){
+          return  this.type==="-"?"支出":"收入"
+        }
         getGroupRecord=(type: string,date: "day"|"month"|"year")=>{
             type DataOrigin = {
                 lineX: string[];
@@ -125,7 +128,7 @@
         }
         optionLine = {
             title: {
-                text: `${this.type==="-"?"支出":"收入"}统计`,
+                text: "金额统计",
                 left: 'center'
             },
             xAxis: {
@@ -161,7 +164,7 @@
         };
         optionPie = {
             title: {
-                text: '支出分类占比(总)',
+                text: "分类占比(总)",
                 subtext: '',
                 left: 'center'
             },
